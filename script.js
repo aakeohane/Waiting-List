@@ -3,6 +3,8 @@ const groupTwo = document.getElementById("list2")
 const groupThree = document.getElementById("list3")
 const groupFour = document.getElementById("list4")
 
+const button = document.getElementById("button")
+
 const listOne = [
   98, 17, 12, 19, 7, 6
 ]
@@ -18,6 +20,17 @@ const listThree = [
 const listFour = [
   99, 1
 ]
+
+button.addEventListener('click', () => {
+  const newElement = document.createElement('div')
+  newElement.value = 8
+  newElement.innerText = 8
+  newElement.className = "listItems"
+  listThree.push(newElement.value)
+  groupThree.appendChild(newElement)
+  console.log(listThree)
+});
+
 
 function makeList(location, list) {
   list.forEach((item) => {
