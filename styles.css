@@ -2,6 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Open Sans", sans-serif;
   text-decoration: none;
 }
 
@@ -21,11 +22,59 @@ ul {
   box-shadow: rgba(3, 102, 214, 0.3) 0px 0px 0px 3px;
   display: grid;
   place-items: center;
-
+  position: relative;
   border-radius: 25px;
   padding: 20px;
   width: 200px;
   height: 100px;
   margin: 10px;
   cursor: pointer;
+}
+
+.remove-icon {
+  position: absolute;
+  top: 6%;
+  left: 88%;
+  opacity: 0.8;
+  width: 20px;
+  height: auto;
+  -webkit-transition: 200ms ease-in-out;
+  -moz-transition: 200ms ease-in-out;
+  -o-transition: 200ms ease-in-out;
+  transition: 200ms ease-in-out;
+}
+
+.remove-icon:hover {
+  -ms-transform: scale(1.2, 1.2);
+  -webkit-transform: scale(1.2, 1.2);
+  transform: scale(1.2, 1.2);
+}
+
+.remove-icon:hover {
+  cursor: pointer;
+}
+
+#contextMenu {
+  display: none;
+  position: fixed;
+  z-index: 100;
+  width: 150px;
+  background: #1b1a1a;
+  border-radius: 5px;
+}
+
+#contextMenu.visible {
+  display: block;
+}
+
+#contextMenu .item {
+  padding: 8px 10px;
+  font-size: 15px;
+  color: #eee;
+  cursor: pointer;
+  border-radius: inherit;
+}
+
+#contextMenu .item:hover {
+  background: #343434;
 }
