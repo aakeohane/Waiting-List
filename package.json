@@ -1,0 +1,22 @@
+{
+  "name": "waiting-list",
+  "version": "1.0.0",
+  "description": "Wait List for CSD",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aakeohane/Waiting-List.git"
+  },
+  "author": "Aaron Keohane",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aakeohane/Waiting-List/issues"
+  },
+  "homepage": "https://github.com/aakeohane/Waiting-List#readme",
+  "dependencies": {
+    "sortablejs": "^1.15.0"
+  }
+}

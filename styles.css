@@ -10,6 +10,14 @@
   display: flex;
 }
 
+#addLockerForm {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  gap: 10px;
+  margin: 10px;
+}
+
 ul {
   width: 200px;
   margin: 10px;
@@ -77,4 +85,8 @@ ul {
 
 #contextMenu .item:hover {
   background: #343434;
+}
+
+.dimmed {
+  background: lightcyan;
 }
