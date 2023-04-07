@@ -18,12 +18,16 @@ button.addEventListener('click', () => {
 function createListItem() {
   event.preventDefault();
   const newElement = document.createElement('li')
-  newElement.innerText = lockerNumber.value
   newElement.className = "listItems"
 
-  const deleteIcon = document.createElement('img');
+  const lockerNumberText = document.createElement('div')
+  lockerNumberText.innerText = "Locker Number " + lockerNumber.value
+  lockerNumberText.setAttribute('class', 'locker-text')
+  newElement.appendChild(lockerNumberText)
+
+  const deleteIcon = document.createElement('span');
+  deleteIcon.innerHTML = "&times;"
   deleteIcon.setAttribute('class', 'remove-icon');
-  deleteIcon.setAttribute('src', 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/375261/System_Delete.ico');
 
   setRoom(newElement, deleteIcon)
 }

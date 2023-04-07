@@ -11,7 +11,8 @@ const groupFive = document.getElementById("list5")
 const defaultSort = {
   group: 'shared',
   animation: 300,
-  ghostClass: 'dimmed'
+  ghostClass: 'dimmed',
+  dragClass: 'dragged'
 }
 
 const sortable1 = Sortable.create(groupOne, defaultSort)

@@ -18,19 +18,26 @@
   margin: 10px;
 }
 
-ul {
+ul,
+ol {
   width: 200px;
   margin: 10px;
   text-align: center;
 }
 
+ul {
+  counter-reset: locker-count;
+  list-style-type: none;
+  position: relative;
+}
+
 .listItems {
-  color: blue;
-  font-size: 2rem;
-  box-shadow: rgba(3, 102, 214, 0.3) 0px 0px 0px 3px;
+  color: rgb(0, 122, 255);
+  font-size: 1rem;
+  box-shadow: rgb(90, 200, 250) 0px 0px 0px 3px;
+  position: relative;
   display: grid;
   place-items: center;
-  position: relative;
   border-radius: 25px;
   padding: 20px;
   width: 200px;
@@ -39,54 +46,60 @@ ul {
   cursor: pointer;
 }
 
+.listItems::before {
+  counter-increment: locker-count;
+  content: counter(locker-count);
+  background-color: rgb(52, 199, 89);
+  color: white;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  line-height: 21.5px;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+.locker-text {
+  color: rgb(52, 199, 89);
+}
+
 .remove-icon {
   position: absolute;
-  top: 6%;
-  left: 88%;
-  opacity: 0.8;
-  width: 20px;
-  height: auto;
-  -webkit-transition: 200ms ease-in-out;
-  -moz-transition: 200ms ease-in-out;
-  -o-transition: 200ms ease-in-out;
-  transition: 200ms ease-in-out;
+  display: inline-block;
+  color: white;
+  opacity: 0;
+  font-size: 26px;
+  top: -6px;
+  right: -4px;
+  width: 25px;
+  height: 25px;
+  line-height: 20.5px;
+  background-color: rgb(209, 209, 214);
+  border-radius: 50%;
+  text-align: center;
+  -webkit-transition: 300ms ease-in-out;
+  -moz-transition: 300ms ease-in-out;
+  -o-transition: 300ms ease-in-out;
+  transition: 300ms ease-in-out;
+}
+
+.listItems:hover > .remove-icon {
+  opacity: 1;
 }
 
 .remove-icon:hover {
+  cursor: pointer;
+  opacity: 1;
   -ms-transform: scale(1.2, 1.2);
   -webkit-transform: scale(1.2, 1.2);
   transform: scale(1.2, 1.2);
 }
 
-.remove-icon:hover {
-  cursor: pointer;
-}
-
-#contextMenu {
-  display: none;
-  position: fixed;
-  z-index: 100;
-  width: 150px;
-  background: #1b1a1a;
-  border-radius: 5px;
-}
-
-#contextMenu.visible {
-  display: block;
-}
-
-#contextMenu .item {
-  padding: 8px 10px;
-  font-size: 15px;
-  color: #eee;
-  cursor: pointer;
-  border-radius: inherit;
-}
-
-#contextMenu .item:hover {
-  background: #343434;
-}
-
 .dimmed {
-  background: lightcyan;
+  background: rgb(90, 200, 250);
+}
+
+.dragged {
+  background: rgb(255, 204, 0);
 }
