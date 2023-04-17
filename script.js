@@ -28,8 +28,14 @@ function createListItem() {
   const deleteIcon = document.createElement('span');
   deleteIcon.innerHTML = "&times;"
   deleteIcon.setAttribute('class', 'remove-icon');
-
   setRoom(newElement, deleteIcon)
+
+  
+  const listOneLi = groupOne.querySelectorAll('li')
+  const nodeList = Array.from(listOneLi, function(el) {
+    return el.innerText
+  })
+  console.log(nodeList)
 }
 
 function setRoom(newElement, deleteIcon) {
@@ -70,7 +76,7 @@ function setRoom(newElement, deleteIcon) {
   } else 
   // adds locker to individual list
   list.appendChild(newElement)
-  
+  console.log(groupOne)
 }
 
 function removeLocker(e) {
