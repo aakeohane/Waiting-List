@@ -20,7 +20,7 @@
 
 ul,
 ol {
-  width: 200px;
+  min-width: 200px;
   margin: 10px;
   text-align: center;
 }
@@ -51,11 +51,12 @@ ul {
   content: counter(locker-count);
   background-color: rgb(52, 199, 89);
   color: white;
-  height: 20px;
-  width: 20px;
+  height: 25px;
+  width: 25px;
   border-radius: 50%;
-  line-height: 21.5px;
+  line-height: 26px;
   position: absolute;
+  letter-spacing: -1px;
   top: 10px;
   left: 10px;
 }

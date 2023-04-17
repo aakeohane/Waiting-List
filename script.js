@@ -70,11 +70,12 @@ function setRoom(newElement, deleteIcon) {
   } else 
   // adds locker to individual list
   list.appendChild(newElement)
+  
 }
 
 function removeLocker(e) {
-  var el = e.target;
-  var elListItem= el.parentNode;
-  elFullList = elListItem.parentNode;
-  elFullList.removeChild(elListItem);
+  const xButton = e.target;
+  const locker = xButton.parentNode;
+  lockerList = locker.parentNode;
+  lockerList.removeChild(locker);
 } 
