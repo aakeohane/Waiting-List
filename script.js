@@ -4,17 +4,16 @@ const groupThree = document.getElementById("list3")
 const groupFour = document.getElementById("list4")
 const groupFive = document.getElementById("list5")
 
-export let nodeList
+
 const config = { attributes: true, childList: true };
 // Callback function to execute when mutations are observed
 const callback = (mutationList, observer) => {
   for (const mutation of mutationList) {
     if (mutation.type === "childList" || mutation.attributeName === "draggable") {
       const queryOne = groupOne.querySelectorAll('li')
-      nodeList = Array.from(queryOne, function(item) {
+      const nodeList = Array.from(queryOne, function(item) {
         return item.textContent.replace(/(×)/ig, '')
       })
-      console.log(nodeList);
     }
   }
 };
