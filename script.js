@@ -4,6 +4,25 @@ const groupThree = document.getElementById("list3")
 const groupFour = document.getElementById("list4")
 const groupFive = document.getElementById("list5")
 
+export let nodeList
+const config = { attributes: true, childList: true };
+// Callback function to execute when mutations are observed
+const callback = (mutationList, observer) => {
+  for (const mutation of mutationList) {
+    if (mutation.type === "childList" || mutation.attributeName === "draggable") {
+      const queryOne = groupOne.querySelectorAll('li')
+      nodeList = Array.from(queryOne, function(item) {
+        return item.textContent.replace(/(×)/ig, '')
+      })
+      console.log(nodeList);
+    }
+  }
+};
+const observer = new MutationObserver(callback);
+
+// Start observing the target node for configured mutations
+observer.observe(groupOne, config);
+
 const allGroups = document.getElementsByClassName("roomList")
 
 const lockerNumber = document.getElementById("locker")
@@ -29,13 +48,6 @@ function createListItem() {
   deleteIcon.innerHTML = "&times;"
   deleteIcon.setAttribute('class', 'remove-icon');
   setRoom(newElement, deleteIcon)
-
-  
-  const listOneLi = groupOne.querySelectorAll('li')
-  const nodeList = Array.from(listOneLi, function(el) {
-    return el.innerText
-  })
-  console.log(nodeList)
 }
 
 function setRoom(newElement, deleteIcon) {
@@ -76,12 +88,11 @@ function setRoom(newElement, deleteIcon) {
   } else 
   // adds locker to individual list
   list.appendChild(newElement)
-  console.log(groupOne)
 }
 
 function removeLocker(e) {
   const xButton = e.target;
   const locker = xButton.parentNode;
-  lockerList = locker.parentNode;
+  const lockerList = locker.parentNode;
   lockerList.removeChild(locker);
 } 

@@ -19,15 +19,22 @@ initializeApp(firebaseConfig);
 const dbRef = ref(getDatabase())
 
 // Keep this for resetting lists
-// set(child(dbRef, 'Waiting Lists/'), {
-//   "Non TV": '',
-//   "Regular TV": '',
-//   "Large TV": '',
-//   "Regular Suite": '',
-//   "Deluxe Suite": ''
-// })
+set(child(dbRef, 'Waiting Lists/'), {
+  "Non TV": '',
+  "Regular TV": '',
+  "Large TV": '',
+  "Regular Suite": '',
+  "Deluxe Suite": ''
+})
 
-get(child(dbRef, `Waiting Lists/`)).then((snapshot) => {
+const listRef = child(dbRef, `Waiting Lists/Regular Suite/`)
+const newLocker = push(listRef)
+set(newLocker, {
+  0: "Locker 1",
+  1: "locker 2"
+})
+
+get(child(dbRef, `Waiting Lists/Regular Suite`)).then((snapshot) => {
   if (snapshot.exists()) {
     console.log(snapshot.val());
   } else {
@@ -37,10 +44,6 @@ get(child(dbRef, `Waiting Lists/`)).then((snapshot) => {
   console.error(error);
 });
 
-// const listRef = child(dbRef, `Waiting Lists/Regular Suite/`)
-// const newLocker = push(listRef)
-// set(newLocker, {
-//   "locker 1": ""
-// })
+
 
 

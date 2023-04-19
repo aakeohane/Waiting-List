@@ -12,7 +12,7 @@ const defaultSort = {
   group: 'shared',
   animation: 300,
   ghostClass: 'dimmed',
-  dragClass: 'dragged'
+  dragClass: 'dragged',
 }
 
 const sortable1 = Sortable.create(groupOne, defaultSort)
