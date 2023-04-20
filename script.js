@@ -5,23 +5,6 @@ const groupFour = document.getElementById("list4")
 const groupFive = document.getElementById("list5")
 
 
-const config = { attributes: true, childList: true };
-// Callback function to execute when mutations are observed
-const callback = (mutationList, observer) => {
-  for (const mutation of mutationList) {
-    if (mutation.type === "childList" || mutation.attributeName === "draggable") {
-      const queryOne = groupOne.querySelectorAll('li')
-      const nodeList = Array.from(queryOne, function(item) {
-        return item.textContent.replace(/(×)/ig, '')
-      })
-    }
-  }
-};
-const observer = new MutationObserver(callback);
-
-// Start observing the target node for configured mutations
-observer.observe(groupOne, config);
-
 const allGroups = document.getElementsByClassName("roomList")
 
 const lockerNumber = document.getElementById("locker")
@@ -33,12 +16,13 @@ button.addEventListener('click', () => {
   createListItem()
 });
 
-function createListItem() {
+export function createListItem() {
   event.preventDefault();
   const newElement = document.createElement('li')
   newElement.className = "listItems"
 
   const lockerNumberText = document.createElement('div')
+  console.log(lockerNumber)
   lockerNumberText.innerText = "Locker Number " + lockerNumber.value
   lockerNumberText.setAttribute('class', 'locker-text')
   newElement.appendChild(lockerNumberText)
@@ -52,19 +36,19 @@ function createListItem() {
 function setRoom(newElement, deleteIcon) {
   let list
   switch(roomType.value) {
-    case "non-tv":
+    case "Non TV":
       list = groupOne
       break;
-    case "reg-tv":
+    case "Regular TV":
       list = groupTwo
       break;
-    case "large-tv":
+    case "Large TV":
       list = groupThree
       break;
-    case "suite":
+    case "Regular Suite":
       list = groupFour
       break;
-    case "deluxe":
+    case "Deluxe Suite":
       list = groupFive
       break;
     default:

@@ -10,30 +10,30 @@
 <body>
   <form id="addLockerForm">
     <label for="locker number">Locker Number: </label>
-    <input type="number" id="locker" name="locker number" min="1" max="100" value="1">
+    <input type="number" id="locker" name="locker number" min="1" max="100" value="">
 
     <label for="room">Choose a Room:</label>
     <select id="roomType" name="room type">
       <option value="all-rooms">Any</option>
-      <option value="non-tv" >Non TV</option>
-      <option value="reg-tv" >Regular TV</option>
-      <option value="large-tv" >Large TV</option>
-      <option value="suite" >Regular Suite</option>
-      <option value="deluxe" >Deluxe Suite</option>
+      <option value="Non TV" >Non TV</option>
+      <option value="Regular TV" >Regular TV</option>
+      <option value="Large TV" >Large TV</option>
+      <option value="Regular Suite" >Regular Suite</option>
+      <option value="Deluxe Suite" >Deluxe Suite</option>
     </select>
 
   </form>
   <button id="button">Add to Wait List</button>
   <div id="container">
-    <ul id="list1" class="roomList"> Non TV
+    <ul id="list1" class="roomList" title="Non TV"> Non TV
     </ul>
-    <ul id="list2" class="roomList"> Regular TV
+    <ul id="list2" class="roomList" title="Regular TV"> Regular TV
     </ul>
-    <ul id="list3" class="roomList"> Large TV
+    <ul id="list3" class="roomList" title="Large TV"> Large TV
     </ul>
-    <ul id="list4" class="roomList"> Regular Suite
+    <ul id="list4" class="roomList" title="Regular Suite"> Regular Suite
     </ul>
-    <ul id="list5" class="roomList"> Deluxe Suite
+    <ul id="list5" class="roomList" title="Deluxe Suite"> Deluxe Suite
     </ul>
   </div>
   <script type="module" src="sortable.js"></script>
