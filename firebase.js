@@ -24,14 +24,18 @@ const groupThree = document.getElementById("list3")
 const groupFour = document.getElementById("list4")
 const groupFive = document.getElementById("list5")
 
+const lockerNumber = document.getElementById("locker")
+
 const firebaseListArray = [groupOne, groupTwo, groupThree, groupFour, groupFive]
 
 firebaseListArray.map((group) => {
   let groupTitle = group.title
-  get(child(dbRef, `Waiting Lists/` + `${groupTitle}` + "/")).then((snapshot) => {
+  get(child(dbRef, `Waiting Lists/` + `${groupTitle}/`)).then((snapshot) => {
     if (snapshot.exists()) {
       const firebaseArray = snapshot.val()
-      firebaseArray.map((fbItem => createListItem(console.log(roomType.value), roomType.value = `${groupTitle}`)))
+      if (firebaseArray !== "") {
+        firebaseArray.map((fbItem => createListItem(roomType.value = `${groupTitle}`, lockerNumber.value = fbItem.match(/\d+/)[0])))
+      }
     } else {
       console.log("No data available");
     }
@@ -60,7 +64,7 @@ const callback = (mutationList, observer) => {
       const nodeList = Array.from(groupies, function(item) {
         return item.textContent.replace(/(×)/ig, '')
       })
-      const listRef = child(dbRef, `Waiting Lists/` + `${category}` + "/")
+      const listRef = child(dbRef, `Waiting Lists/` + `${category}/`)
       const nodeArray = nodeList.map((locker) => (locker))
       if (nodeArray.length !== 0) {
         set(listRef, nodeArray)

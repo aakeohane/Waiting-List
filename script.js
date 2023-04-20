@@ -22,8 +22,8 @@ export function createListItem() {
   newElement.className = "listItems"
 
   const lockerNumberText = document.createElement('div')
-  console.log(lockerNumber)
-  lockerNumberText.innerText = "Locker Number " + lockerNumber.value
+  const lockerValue = lockerNumber.value
+  lockerNumberText.innerText = "Locker Number " + lockerValue
   lockerNumberText.setAttribute('class', 'locker-text')
   newElement.appendChild(lockerNumberText)
 
