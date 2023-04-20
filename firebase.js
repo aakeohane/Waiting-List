@@ -1,8 +1,12 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-app.js";
-import { getDatabase, ref, get, child, set, push, onValue } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-database.js";
-import {createListItem} from "./script.js";
+import { getDatabase, ref, get, child, set } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-database.js";
+// import this function from my script.js so that I can reset the DOM with the data that is in firebase if user were to refresh page
+import  createListItem from "./script.js";
 
-// Your web app's Firebase configuration
+// I am using Firebase to hold array data that will constantly be reset because I wasnt sure of another way
+// to do this. The database holds a very small amount of data and while Firebase doesnt recommend using associative arrays,
+// I think this is a rare case where it would be okay bc its not being used as a true database
+
 const firebaseConfig = {
   apiKey: "AIzaSyDZdTnf6lQV8AAcgCnhZbbBgTdBB2JIvxo",
   authDomain: "csd-waitlist.firebaseapp.com",
@@ -12,7 +16,6 @@ const firebaseConfig = {
   messagingSenderId: "835959686846",
   appId: "1:835959686846:web:c586727259a59ccdfb80ef"
 };
-
 
 // Initialize Firebase
 initializeApp(firebaseConfig);
@@ -26,14 +29,18 @@ const groupFive = document.getElementById("list5")
 
 const lockerNumber = document.getElementById("locker")
 
+// set array for each group list so that I can iterate through and add their list items (<li/>) from firebase data
 const firebaseListArray = [groupOne, groupTwo, groupThree, groupFour, groupFive]
 
+// this function will happen only once upon each page load and refresh, nothing will be added if the firebase data for that specific list is empty string
 firebaseListArray.map((group) => {
   let groupTitle = group.title
   get(child(dbRef, `Waiting Lists/` + `${groupTitle}/`)).then((snapshot) => {
     if (snapshot.exists()) {
       const firebaseArray = snapshot.val()
       if (firebaseArray !== "") {
+        // I have to change the values to work with the firebase data, hence overriding the values from the original script
+        // regex is used to pull the number from the string and create the "lockerNumber.value"
         firebaseArray.map((fbItem => createListItem(roomType.value = `${groupTitle}`, lockerNumber.value = fbItem.match(/\d+/)[0])))
       }
     } else {
@@ -44,7 +51,7 @@ firebaseListArray.map((group) => {
   });
 })
 
-// Keep this for resetting lists
+// Keep this for resetting lists, eventually might need button to empty all lists at click of a button
 // set(child(dbRef, 'Waiting Lists/'), {
 //   "Non TV": "",
 //   "Regular TV": "",
@@ -53,15 +60,18 @@ firebaseListArray.map((group) => {
 //   "Deluxe Suite": ""
 // })
 
+// First time case for using the built in MutationObserver, I am very much a fan of this!
+// I use this to check for "mutations" of both adding to a list and also editing them with the Sortable.js module
+// it will then take the necesary data and reset each category/list with the locker number li item info
 const config = { attributes: true, childList: true };
-// Callback function to execute when mutations are observed
 const callback = (mutationList, observer) => {
   for (const mutation of mutationList) {
     if (mutation.type === "childList" || mutation.attributeName === "draggable") {
       const group = mutation.target.id
       const category = mutation.target.title
-      const groupies = ((document.getElementById(`${group}`)).querySelectorAll('li'))
-      const nodeList = Array.from(groupies, function(item) {
+      const groupLiQuery = ((document.getElementById(`${group}`)).querySelectorAll('li'))
+      const nodeList = Array.from(groupLiQuery, function(item) {
+        // removes weird x symbol, not sure how that is there?
         return item.textContent.replace(/(×)/ig, '')
       })
       const listRef = child(dbRef, `Waiting Lists/` + `${category}/`)

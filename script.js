@@ -16,7 +16,7 @@ button.addEventListener('click', () => {
   createListItem()
 });
 
-export function createListItem() {
+export default function createListItem() {
   event.preventDefault();
   const newElement = document.createElement('li')
   newElement.className = "listItems"
