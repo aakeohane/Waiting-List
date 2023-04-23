@@ -29,6 +29,8 @@ const groupFive = document.getElementById("list5")
 
 const lockerNumber = document.getElementById("locker")
 
+
+
 // set array for each group list so that I can iterate through and add their list items (<li/>) from firebase data
 const firebaseListArray = [groupOne, groupTwo, groupThree, groupFour, groupFive]
 
@@ -42,6 +44,7 @@ firebaseListArray.map((group) => {
         // I have to change the values to work with the firebase data, hence overriding the values from the original script
         // regex is used to pull the number from the string and create the "lockerNumber.value"
         firebaseArray.map((fbItem => createListItem(roomType.value = `${groupTitle}`, lockerNumber.value = fbItem.match(/\d+/)[0])))
+        roomType.value = "All"
       }
     } else {
       console.log("No data available");

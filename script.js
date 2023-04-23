@@ -6,13 +6,24 @@ const groupFive = document.getElementById("list5")
 
 
 const allGroups = document.getElementsByClassName("roomList")
+const add = document.getElementById("add")
+const minus = document.getElementById("minus")
 
 const lockerNumber = document.getElementById("locker")
+
 const roomType = document.getElementById("roomType")
 
-const button = document.getElementById("button")
+const waitlistButton = document.getElementById("addToWaitlist")
 
-button.addEventListener('click', () => {
+add.addEventListener("click", () => {
+  lockerNumber.value++
+});
+
+minus.addEventListener("click", () => {
+  lockerNumber.value == 1 ? lockerNumber.value == 1 : lockerNumber.value--;
+});
+
+waitlistButton.addEventListener('click', () => {
   createListItem()
 });
 
@@ -22,8 +33,7 @@ export default function createListItem() {
   newElement.className = "listItems"
 
   const lockerNumberText = document.createElement('div')
-  const lockerValue = lockerNumber.value
-  lockerNumberText.innerText = "Locker Number " + lockerValue
+  lockerNumberText.innerText = "Locker Number " + lockerNumber.value
   lockerNumberText.setAttribute('class', 'locker-text')
   newElement.appendChild(lockerNumberText)
 
