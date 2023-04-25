@@ -13,6 +13,28 @@ const lockerNumber = document.getElementById("locker")
 
 const roomType = document.getElementById("roomType")
 
+const roomOptions = document.querySelectorAll(".room-options")
+
+for(let i=0; i<roomOptions.length; i++){
+  // adds event listener to each div
+  let choices = roomOptions[i]
+  choices.addEventListener("click", function(){
+      // if the div is any, adds chosen class to each div
+      if(this.outerText === "Any") {
+        for (let i = 0; i < roomOptions.length; i++) {
+          roomOptions[i].classList.add("chosen");
+      }
+      // otherwise, removes chosen class from each div
+      } else
+      for (let i = 0; i < roomOptions.length; i++) {
+          roomOptions[i].classList.remove("chosen");
+      }
+      // then adds chosen class to "this", the one clicked on and adds the value based on text
+      this.classList.add("chosen");
+      roomType.value = this.outerText
+  });
+}
+
 const waitlistButton = document.getElementById("addToWaitlist")
 
 add.addEventListener("click", () => {
@@ -27,7 +49,7 @@ waitlistButton.addEventListener('click', () => {
   createListItem()
 });
 
-export default function createListItem() {
+export default function createListItem(roomba) {
   event.preventDefault();
   const newElement = document.createElement('li')
   newElement.className = "listItems"

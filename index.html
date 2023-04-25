@@ -28,6 +28,14 @@
       </button>
     </div>
     <label for="room">Choose a Room:</label>
+    <div class="options-container" id="visibleOptions">
+      <div id="any" class="room-options">Any</div>
+      <div id="nonTV" class="room-options">Non TV</div>
+      <div id="regularTV" class="room-options">Regular TV</div>
+      <div id="largeTV" class="room-options">Large TV</div>
+      <div id="regularSuite" class="room-options">Regular Suite</div>
+      <div id="deluxeSuite" class="room-options">Deluxe Suite</div>
+    </div>
     <select id="roomType" name="room type">
       <option value="All">Any</option>
       <option value="Non TV" >Non TV</option>
@@ -37,8 +45,8 @@
       <option value="Deluxe Suite" >Deluxe Suite</option>
     </select>
 
+    <button id="addToWaitlist" class="button">Add to Wait List</button>
   </form>
-  <button id="addToWaitlist" class="button">Add to Wait List</button>
   <div id="container">
     <ul id="list1" class="roomList" title="Non TV"> Non TV
     </ul>

@@ -28,7 +28,16 @@ const groupFour = document.getElementById("list4")
 const groupFive = document.getElementById("list5")
 
 const lockerNumber = document.getElementById("locker")
+const roomType = document.getElementById("roomType")
 
+// Keep this for resetting lists, eventually might need button to empty all lists at click of a button
+// set(child(dbRef, 'Waiting Lists/'), {
+//   "Non TV": "",
+//   "Regular TV": "",
+//   "Large TV": "",
+//   "Regular Suite": "",
+//   "Deluxe Suite": ""
+// })
 
 
 // set array for each group list so that I can iterate through and add their list items (<li/>) from firebase data
@@ -43,8 +52,12 @@ firebaseListArray.map((group) => {
       if (firebaseArray !== "") {
         // I have to change the values to work with the firebase data, hence overriding the values from the original script
         // regex is used to pull the number from the string and create the "lockerNumber.value"
-        firebaseArray.map((fbItem => createListItem(roomType.value = `${groupTitle}`, lockerNumber.value = fbItem.match(/\d+/)[0])))
-        roomType.value = "All"
+        firebaseArray.map((fbItem => {
+          createListItem(roomType.value = `${groupTitle}` , lockerNumber.value = fbItem.match(/\d+/)[0])
+          roomType.value = "All"
+        }
+        ))
+        
       }
     } else {
       console.log("No data available");
@@ -53,15 +66,6 @@ firebaseListArray.map((group) => {
     console.error(error);
   });
 })
-
-// Keep this for resetting lists, eventually might need button to empty all lists at click of a button
-// set(child(dbRef, 'Waiting Lists/'), {
-//   "Non TV": "",
-//   "Regular TV": "",
-//   "Large TV": "",
-//   "Regular Suite": "",
-//   "Deluxe Suite": ""
-// })
 
 // First time case for using the built in MutationObserver, I am very much a fan of this!
 // I use this to check for "mutations" of both adding to a list and also editing them with the Sortable.js module
