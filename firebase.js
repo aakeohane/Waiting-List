@@ -54,7 +54,7 @@ firebaseListArray.map((group) => {
         // regex is used to pull the number from the string and create the "lockerNumber.value"
         firebaseArray.map((fbItem => {
           createListItem(roomType.value = `${groupTitle}` , lockerNumber.value = fbItem.match(/\d+/)[0])
-          roomType.value = "All"
+          roomType.value = ""
         }
         ))
         

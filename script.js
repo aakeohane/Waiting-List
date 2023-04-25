@@ -19,15 +19,12 @@ for(let i=0; i<roomOptions.length; i++){
   // adds event listener to each div
   let choices = roomOptions[i]
   choices.addEventListener("click", function(){
-      // if the div is any, adds chosen class to each div
+      // if the div is "Any", adds chosen class to each div
       if(this.outerText === "Any") {
-        for (let i = 0; i < roomOptions.length; i++) {
-          roomOptions[i].classList.add("chosen");
-      }
+        roomOptions.forEach(option => option.classList.add('chosen'))
       // otherwise, removes chosen class from each div
-      } else
-      for (let i = 0; i < roomOptions.length; i++) {
-          roomOptions[i].classList.remove("chosen");
+      } else {
+        roomOptions.forEach(option => option.classList.remove("chosen"))
       }
       // then adds chosen class to "this", the one clicked on and adds the value based on text
       this.classList.add("chosen");
@@ -67,6 +64,9 @@ export default function createListItem(roomba) {
 
 function setRoom(newElement, deleteIcon) {
   let list
+  if (roomType.value === "") {
+    return
+  }
   switch(roomType.value) {
     case "Non TV":
       list = groupOne
@@ -84,14 +84,14 @@ function setRoom(newElement, deleteIcon) {
       list = groupFive
       break;
     default:
-      list = "all"
+      list = "any"
   }
   deleteIcon.addEventListener("click", function(e) {
     removeLocker(e)
   }, false)
   newElement.appendChild(deleteIcon)
   // adds locker to each list instead of just one list
-  if (list === "all") {
+  if (list === "any") {
     Array.from(allGroups).forEach(element => {
       element.appendChild(newElement.cloneNode(true))
     })
