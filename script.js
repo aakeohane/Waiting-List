@@ -14,21 +14,27 @@ const lockerNumber = document.getElementById("locker")
 const roomType = document.getElementById("roomType")
 
 const roomOptions = document.querySelectorAll(".room-options")
+const checkBox = document.getElementById("checkBox")
 
 for(let i=0; i<roomOptions.length; i++){
   // adds event listener to each div
   let choices = roomOptions[i]
   choices.addEventListener("click", function(){
-      // if the div is "Any", adds chosen class to each div
-      if(this.outerText === "Any") {
-        roomOptions.forEach(option => option.classList.add('chosen'))
-      // otherwise, removes chosen class from each div
-      } else {
+      if(this.name === "checkbox") {
+        if (checkBox.checked) {
+          roomOptions.forEach(option => option.classList.add('chosen'))
+          roomType.value = "Any"
+        }
+        else {
+          roomOptions.forEach(option => option.classList.remove('chosen'))
+        }
+      } 
+        else {
         roomOptions.forEach(option => option.classList.remove("chosen"))
-      }
-      // then adds chosen class to "this", the one clicked on and adds the value based on text
-      this.classList.add("chosen");
-      roomType.value = this.outerText
+        checkBox.checked = false
+        this.classList.add("chosen");
+        roomType.value = this.outerText
+      }     
   });
 }
 
@@ -46,7 +52,7 @@ waitlistButton.addEventListener('click', () => {
   createListItem()
 });
 
-export default function createListItem(roomba) {
+export default function createListItem() {
   event.preventDefault();
   const newElement = document.createElement('li')
   newElement.className = "listItems"

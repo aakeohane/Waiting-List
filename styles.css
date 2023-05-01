@@ -56,21 +56,27 @@ input[type="number"]::-webkit-outer-spin-button {
   cursor: pointer;
 }
 
-#roomType {
-  display: none;
+#minus:active {
+  transform: translateY(1px) translateX(-1px);
+}
+
+#add:active {
+  transform: translateY(1px) translateX(1px);
+}
+
+.choose-room-container {
+  display: flex;
+  align-items: center;
 }
 
 .room-options {
   background-color: transparent;
-  /* outline: 1.5px solid #80b0f8; */
   box-shadow: 0 0 3px 0 rgb(90, 200, 250);
   color: rgb(90, 200, 250);
   border-radius: 25px;
   border: 2px solid transparent;
-  padding: 15px 35px;
+  padding: 10px 20px;
   margin-right: 10px;
-  margin-bottom: 10px;
-  /* box-shadow: none; */
   box-sizing: border-box;
   cursor: pointer;
   font-weight: 800;
@@ -81,7 +87,6 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .room-options:hover {
-  /* outline: 1.5px solid transparent; */
   border: 2px solid rgb(90, 200, 250);
   color: rgb(90, 200, 250);
 }
@@ -92,9 +97,44 @@ input[type="number"]::-webkit-outer-spin-button {
   color: #eeedee;
 }
 
+#roomType {
+  display: none;
+}
+
+.label-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.checkbox-container {
+  display: flex;
+  align-self: flex-end;
+  margin: 0;
+}
+
+#checkBox {
+  margin-left: 5px;
+  box-shadow: none;
+  margin-right: 0;
+}
+
+#addToWaitlist {
+  display: inline-block;
+  padding: 0.3em 1.2em;
+  margin: 0 0.3em 0.3em 0;
+  border: none;
+  border-radius: 2em;
+  text-decoration: none;
+  font-weight: 300;
+  color: #ffffff;
+  background-color: #4eb5f1;
+  text-align: center;
+  transition: all 0.2s;
+}
+
 #listContainer {
   display: flex;
-  width: 600px;
+  width: 40%;
 }
 
 ul,
