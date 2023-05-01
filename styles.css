@@ -7,10 +7,11 @@
   font-family: "Montserrat", sans-serif;
 }
 
-.options-container {
+body {
   display: flex;
-  justify-content: space-evenly;
-  width: 800px;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 
 #addLockerForm {
@@ -18,7 +19,9 @@
   flex-direction: column;
   width: fit-content;
   gap: 10px;
-  margin: 10px;
+  margin: 10px 10px 20px 10px;
+  padding: 10px;
+  box-shadow: 0 0 3px 0 rgb(90, 200, 250);
 }
 
 #lockerContainer {
@@ -66,7 +69,16 @@ input[type="number"]::-webkit-outer-spin-button {
 
 .choose-room-container {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
+}
+
+.options-container {
+  display: flex;
+  max-width: 800px;
+  width: auto;
+  flex-wrap: wrap;
+  margin: 0 0 0 5px;
 }
 
 .room-options {
@@ -76,7 +88,7 @@ input[type="number"]::-webkit-outer-spin-button {
   border-radius: 25px;
   border: 2px solid transparent;
   padding: 10px 20px;
-  margin-right: 10px;
+  margin: 5px;
   box-sizing: border-box;
   cursor: pointer;
   font-weight: 800;
@@ -92,7 +104,6 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 .chosen,
 .chosen:hover {
-  /* outline: 1.5px solid transparent; */
   background-color: rgb(90, 200, 250);
   color: #eeedee;
 }
@@ -104,37 +115,37 @@ input[type="number"]::-webkit-outer-spin-button {
 .label-container {
   display: flex;
   flex-direction: column;
+  margin-bottom: 5px;
 }
 
 .checkbox-container {
   display: flex;
   align-self: flex-end;
-  margin: 0;
+  align-items: center;
 }
 
 #checkBox {
-  margin-left: 5px;
   box-shadow: none;
-  margin-right: 0;
+  margin: 2px 5px 0 0;
 }
 
 #addToWaitlist {
   display: inline-block;
   padding: 0.3em 1.2em;
-  margin: 0 0.3em 0.3em 0;
+  width: 100px;
   border: none;
-  border-radius: 2em;
-  text-decoration: none;
-  font-weight: 300;
   color: #ffffff;
-  background-color: #4eb5f1;
+  background-color: rgb(90, 200, 250);
   text-align: center;
-  transition: all 0.2s;
+}
+
+#addToWaitlist:active {
+  transform: translateY(2px);
 }
 
 #listContainer {
   display: flex;
-  width: 40%;
+  /* width: 40%; */
 }
 
 ul,
