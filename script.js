@@ -17,7 +17,6 @@ const roomOptions = document.querySelectorAll(".room-options")
 const checkBox = document.getElementById("checkBox")
 
 for(let i=0; i<roomOptions.length; i++){
-  // adds event listener to each div
   let choices = roomOptions[i]
   choices.addEventListener("click", function(){
       if(this.name === "checkbox") {
@@ -27,6 +26,7 @@ for(let i=0; i<roomOptions.length; i++){
         }
         else {
           roomOptions.forEach(option => option.classList.remove('chosen'))
+          roomType.value = ""
         }
       } 
         else {
@@ -54,6 +54,7 @@ waitlistButton.addEventListener('click', () => {
 
 export default function createListItem() {
   event.preventDefault();
+  if (lockerNumber.value.length == 0) return
   const newElement = document.createElement('li')
   newElement.className = "listItems"
 
