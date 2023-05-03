@@ -45,7 +45,7 @@ add.addEventListener("click", () => {
 });
 
 minus.addEventListener("click", () => {
-  lockerNumber.value == 1 ? lockerNumber.value == 1 : lockerNumber.value--;
+  lockerNumber.value <= 1 ? lockerNumber.value == 1 : lockerNumber.value--;
 });
 
 waitlistButton.addEventListener('click', () => {
@@ -54,7 +54,7 @@ waitlistButton.addEventListener('click', () => {
 
 export default function createListItem() {
   event.preventDefault();
-  if (lockerNumber.value.length == 0) return
+  if (lockerNumber.value.length == 0 || lockerNumber.value <= 0) return
   const newElement = document.createElement('li')
   newElement.className = "listItems"
 
