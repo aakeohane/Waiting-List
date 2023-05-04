@@ -30,14 +30,20 @@ const groupFive = document.getElementById("list5")
 const lockerNumber = document.getElementById("locker")
 const roomType = document.getElementById("roomType")
 
-// Keep this for resetting lists, eventually might need button to empty all lists at click of a button
-// set(child(dbRef, 'Waiting Lists/'), {
-//   "Non TV": "",
-//   "Regular TV": "",
-//   "Large TV": "",
-//   "Regular Suite": "",
-//   "Deluxe Suite": ""
-// })
+const clearWaitlist = document.getElementById("removeAllLockers")
+
+clearWaitlist.addEventListener("click", (e) => {
+  if(confirm('Are you sure?')) {
+    set(child(dbRef, 'Waiting Lists/'), {
+      "Non TV": "",
+      "Regular TV": "",
+      "Large TV": "",
+      "Regular Suite": "",
+      "Deluxe Suite": ""
+    })
+  } else e.preventDefault()
+})
+
 
 
 // set array for each group list so that I can iterate through and add their list items (<li/>) from firebase data

@@ -44,7 +44,9 @@ input[type="number"]::-webkit-outer-spin-button {
   width: 60px;
   font-size: 18px;
   cursor: pointer;
+  margin: 0 3px 0 3px;
   color: rgb(90, 200, 250);
+  cursor: auto;
 }
 
 .lockerButton {
@@ -57,6 +59,10 @@ input[type="number"]::-webkit-outer-spin-button {
   font-size: 10px;
   text-align: center;
   cursor: pointer;
+}
+
+.lockerButton:hover {
+  background-color: rgb(90, 200, 250, 0.4);
 }
 
 #minus:active {
@@ -129,7 +135,12 @@ input[type="number"]::-webkit-outer-spin-button {
   margin: 2px 5px 0 0;
 }
 
-#addToWaitlist {
+.button-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.waitlist-button {
   display: inline-block;
   padding: 0.3em 1.2em;
   width: 100px;
@@ -137,9 +148,13 @@ input[type="number"]::-webkit-outer-spin-button {
   color: #ffffff;
   background-color: rgb(90, 200, 250);
   text-align: center;
+  cursor: pointer;
+}
+.waitlist-button:hover {
+  background-color: rgb(90, 200, 250, 0.8);
 }
 
-#addToWaitlist:active {
+.waitlist-button:active {
   transform: translateY(2px);
 }
 

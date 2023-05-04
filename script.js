@@ -16,26 +16,28 @@ const roomType = document.getElementById("roomType")
 const roomOptions = document.querySelectorAll(".room-options")
 const checkBox = document.getElementById("checkBox")
 
+function addClasses() {
+  if(this.name === "checkbox") {
+    if (checkBox.checked) {
+      roomOptions.forEach(option => option.classList.add('chosen'))
+      roomType.value = "Any"
+    }
+    else {
+      roomOptions.forEach(option => option.classList.remove('chosen'))
+      roomType.value = ""
+    }
+  } 
+    else {
+    roomOptions.forEach(option => option.classList.remove("chosen"))
+    checkBox.checked = false
+    this.classList.add("chosen");
+    roomType.value = this.outerText
+  }
+}
+
 for(let i=0; i<roomOptions.length; i++){
   let choices = roomOptions[i]
-  choices.addEventListener("click", function(){
-      if(this.name === "checkbox") {
-        if (checkBox.checked) {
-          roomOptions.forEach(option => option.classList.add('chosen'))
-          roomType.value = "Any"
-        }
-        else {
-          roomOptions.forEach(option => option.classList.remove('chosen'))
-          roomType.value = ""
-        }
-      } 
-        else {
-        roomOptions.forEach(option => option.classList.remove("chosen"))
-        checkBox.checked = false
-        this.classList.add("chosen");
-        roomType.value = this.outerText
-      }     
-  });
+  choices.addEventListener("click", addClasses);
 }
 
 const waitlistButton = document.getElementById("addToWaitlist")
@@ -48,12 +50,12 @@ minus.addEventListener("click", () => {
   lockerNumber.value <= 1 ? lockerNumber.value == 1 : lockerNumber.value--;
 });
 
-waitlistButton.addEventListener('click', () => {
+waitlistButton.addEventListener('click', (e) => {
+  e.preventDefault()
   createListItem()
 });
 
 export default function createListItem() {
-  event.preventDefault();
   if (lockerNumber.value.length == 0 || lockerNumber.value <= 0) return
   const newElement = document.createElement('li')
   newElement.className = "listItems"

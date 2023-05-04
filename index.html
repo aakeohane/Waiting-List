@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="styles.css">
-  <title>Document</title>
+  <title>Waitlist</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap" rel="stylesheet">
@@ -36,14 +36,14 @@
         </div>
       </div>
       <div class="options-container" id="visibleOptions">
-        <div id="nonTV" class="room-options">Non TV</div>
-        <div id="regularTV" class="room-options">Regular TV</div>
-        <div id="largeTV" class="room-options">Large TV</div>
-        <div id="regularSuite" class="room-options">Regular Suite</div>
-        <div id="deluxeSuite" class="room-options">Deluxe Suite</div>
+        <div id="nonTV" role="button"  tabindex="0" class="room-options">Non TV</div>
+        <div id="regularTV" tabindex="0" class="room-options">Regular TV</div>
+        <div id="largeTV" tabindex="0" class="room-options">Large TV</div>
+        <div id="regularSuite" tabindex="0" class="room-options">Regular Suite</div>
+        <div id="deluxeSuite" tabindex="0" class="room-options">Deluxe Suite</div>
       </div>
       <select id="roomType" name="room type">
-        <option value="Any">Any</option>
+        <option value="Any">Any</option>  
         <option value="Non TV" >Non TV</option>
         <option value="Regular TV" >Regular TV</option>
         <option value="Large TV" >Large TV</option>
@@ -51,7 +51,10 @@
         <option value="Deluxe Suite" >Deluxe Suite</option>
       </select>
     </div>
-    <button id="addToWaitlist" class="button">Add to Wait List</button>
+    <div class="button-container">
+      <button id="addToWaitlist" class="waitlist-button">Add to Wait List</button>
+      <button id="removeAllLockers" class="waitlist-button">Clear Waitlist</button>
+    </div>
   </form>
   <div id="listContainer">
     <ul id="list1" class="roomList" title="Non TV"> Non TV
