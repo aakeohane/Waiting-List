@@ -44,8 +44,6 @@ clearWaitlist.addEventListener("click", (e) => {
   } else e.preventDefault()
 })
 
-
-
 // set array for each group list so that I can iterate through and add their list items (<li/>) from firebase data
 const firebaseListArray = [groupOne, groupTwo, groupThree, groupFour, groupFive]
 
@@ -63,9 +61,9 @@ firebaseListArray.map((group) => {
           roomType.value = ""
         }
         ))
-        
       }
     } else {
+      roomType.value = ""
       console.log("No data available");
     }
   }).catch((error) => {

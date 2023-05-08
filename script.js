@@ -16,6 +16,10 @@ const roomType = document.getElementById("roomType")
 const roomOptions = document.querySelectorAll(".room-options")
 const checkBox = document.getElementById("checkBox")
 
+// on refresh and initial, just sets data value to blank, helps with clear waitlist function 
+// as well so you dont add rooms to every list when checkbox is not check
+roomType.value = ""
+
 function addClasses() {
   if(this.name === "checkbox") {
     if (checkBox.checked) {
@@ -28,10 +32,10 @@ function addClasses() {
     }
   } 
     else {
-    roomOptions.forEach(option => option.classList.remove("chosen"))
-    checkBox.checked = false
-    this.classList.add("chosen");
-    roomType.value = this.outerText
+      roomOptions.forEach(option => option.classList.remove("chosen"))
+      checkBox.checked = false
+      this.classList.add("chosen");
+      roomType.value = this.outerText
   }
 }
 
@@ -51,12 +55,14 @@ minus.addEventListener("click", () => {
 });
 
 waitlistButton.addEventListener('click', (e) => {
+  console.log(checkBox.checked)
   e.preventDefault()
   createListItem()
 });
 
 export default function createListItem() {
-  if (lockerNumber.value.length == 0 || lockerNumber.value <= 0) return
+  console.log(roomType.value)
+  if (lockerNumber.value.length == 0 || lockerNumber.value <= 0 || roomType.value === "") return
   const newElement = document.createElement('li')
   newElement.className = "listItems"
 
