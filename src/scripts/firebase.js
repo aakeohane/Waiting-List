@@ -1,5 +1,5 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-app.js";
-import { getDatabase, ref, get, child, set } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-database.js";
+import { initializeApp } from "firebase/app";
+import { getDatabase, ref, get, child, set } from "firebase/database";
 // import this function from my script.js so that I can reset the DOM with the data that is in firebase if user were to refresh page
 import  createListItem from "./script.js";
 

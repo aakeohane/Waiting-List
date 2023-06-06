@@ -1,3 +1,5 @@
+import '../styles.css'
+
 const groupOne = document.getElementById("list1")
 const groupTwo = document.getElementById("list2")
 const groupThree = document.getElementById("list3")

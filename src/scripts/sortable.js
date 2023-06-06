@@ -1,5 +1,4 @@
-import Sortable from '/node_modules/sortablejs/modular/sortable.core.esm.js';
-// import Sortable from 'sortablejs'
+import Sortable from 'sortablejs';
 
 const groupOne = document.getElementById("list1")
 const groupTwo = document.getElementById("list2")
