@@ -127,4 +127,5 @@ function removeLocker(e) {
   const locker = xButton.parentNode;
   const lockerList = locker.parentNode;
   lockerList.removeChild(locker);
+  console.log(e)
 } 
