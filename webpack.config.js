@@ -7,6 +7,10 @@ module.exports = {
     app: ['./src/scripts/script.js', './src/scripts/firebase.js', './src/scripts/sortable.js' ]
   },
   devtool: 'inline-source-map',
+  // devServer: {
+  //   contentBase: './dist',
+  //   open: true
+  // },
   output: {
     filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist'),
@@ -14,7 +18,9 @@ module.exports = {
   },
   plugins: [
     new HtmlWebPackPlugin({
-      template: 'index.html'
+      template: './src/index.html',
+      filename: 'index.html',
+      inject: 'body'
     })
  ],
   "module": { 
