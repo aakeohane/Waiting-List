@@ -18,6 +18,9 @@ const roomType = document.getElementById("roomType")
 const roomOptions = document.querySelectorAll(".room-options")
 const checkBox = document.getElementById("checkBox")
 
+const popup = document.getElementById("popup-menu")
+
+
 // on refresh and initial, just sets data value to blank, helps with clear waitlist function 
 // as well so you dont add rooms to every list when checkbox is not check
 roomType.value = ""
@@ -77,10 +80,15 @@ export default function createListItem() {
   deleteIcon.innerHTML = "&times;"
   deleteIcon.setAttribute('class', 'remove-icon');
   setRoom(newElement, deleteIcon)
+
+  newElement.addEventListener("contextmenu", popupMenu)
+  
+
 }
 
 function setRoom(newElement, deleteIcon) {
   let list
+  
   if (roomType.value === "") {
     return
   }
@@ -103,29 +111,63 @@ function setRoom(newElement, deleteIcon) {
     default:
       list = "any"
   }
-  deleteIcon.addEventListener("click", function(e) {
-    removeLocker(e)
-  }, false)
+  // deleteIcon.addEventListener("click", function(e) {
+  //   removeLocker(e)
+  // }, false)
+  
   newElement.appendChild(deleteIcon)
   // adds locker to each list instead of just one list
   if (list === "any") {
     Array.from(allGroups).forEach(element => {
       element.appendChild(newElement.cloneNode(true))
+      element.addEventListener("contextmenu", popupMenu)
+      element.addEventListener('click', removeLocker)
+      // const clonedGroup = document.querySelectorAll(".remove-icon")
+      // // I have to delegate event listener individually because cloning nodes does not bring event listeners with it
+      // for (const clone of clonedGroup) {
+      //   clone.addEventListener("click", removeLocker)
+      // }
     })
-    const clonedGroup = document.querySelectorAll(".remove-icon")
-    // I have to delegate event listener individually because cloning nodes does not bring event listeners with it
-    for (const clone of clonedGroup) {
-      clone.addEventListener("click", removeLocker)
-    }
-  } else 
-  // adds locker to individual list
-  list.appendChild(newElement)
+  } else {
+    // adds locker to individual list
+    list.appendChild(newElement)
+    newElement.addEventListener("contextmenu", popupMenu)
+    // const listBig = document.querySelector('.roomList')
+    list.addEventListener('click', removeLocker)
+  }
 }
 
 function removeLocker(e) {
-  const xButton = e.target;
-  const locker = xButton.parentNode;
-  const lockerList = locker.parentNode;
-  lockerList.removeChild(locker);
-  console.log(e)
-} 
+  if (e.target.matches('.remove-icon')) {
+    const xButton = e.target;
+    const locker = xButton.parentNode;
+    const lockerList = locker.parentNode;
+    lockerList.removeChild(locker);
+    popup.classList.remove("active")
+  }
+}
+
+function popupMenu(e) {
+  const lockerNumber = e.target
+  console.log(lockerNumber.innerText)
+  e.preventDefault()
+  const { clientX: mouseX, clientY: mouseY } = e
+
+  popup.style.top = `${mouseY}px`
+  popup.style.left = `${mouseX}px`
+
+  popup.classList.add("active")
+}
+
+const scope = document.querySelector("body")
+
+scope.addEventListener("mousedown", function(e) {
+  if (e.target.offsetParent != popup) {
+    popup.classList.remove("active")
+  }
+})
+
+
+
+
+

@@ -284,21 +284,22 @@ input[type="number"]::-webkit-outer-spin-button {
   background: rgb(255, 204, 0);
 }
 
-.custom-context-menu {
+.custom-popup-menu {
   width: 150px;
   box-shadow: 0 4px 8px -2px rgba(0, 0, 0, 0.3);
-  /* position: fixed; */
-  opacity: 1;
-  /* pointer-events: none; */
+  position: absolute;
+  z-index: 100;
+  opacity: 0;
+  pointer-events: none;
   transition: opacity 500ms ease;
 }
 
-.custom-context-menu.active {
+.custom-popup-menu.active {
   opacity: 1;
   pointer-events: auto;
 }
 
-.custom-context-menu ul li a {
+.custom-popup-menu ul li a {
   text-decoration: none;
   font-family: "Roboto", sans-serif;
   padding: 10px 16px;
@@ -314,12 +315,12 @@ input[type="number"]::-webkit-outer-spin-button {
   transition: all 400ms ease;
 }
 
-.custom-context-menu ul li a:hover {
+.custom-popup-menu ul li a:hover {
   background: #f1faee;
-  border-left: 4px solid red;
+  border-left: 4px solid rgb(52, 199, 89);
 }
 
-.custom-context-menu ul {
+.custom-popup-menu ul {
   list-style: none;
   margin: 0;
   padding: 0;
