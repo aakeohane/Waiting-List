@@ -304,9 +304,10 @@ input[type="number"]::-webkit-outer-spin-button {
   font-family: "Roboto", sans-serif;
   padding: 10px 16px;
   display: inline-block;
-  font-size: 16px;
+  font-size: 12px;
   font-weight: bold;
   color: #222;
+  text-align: center;
   background: #fff;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   width: 100%;

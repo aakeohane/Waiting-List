@@ -19,7 +19,8 @@ const roomOptions = document.querySelectorAll(".room-options")
 const checkBox = document.getElementById("checkBox")
 
 const popup = document.getElementById("popup-menu")
-
+const deleteAllBtn = document.getElementById("deleteAll")
+const roomReadyBtn = document.getElementById("roomReady")
 
 // on refresh and initial, just sets data value to blank, helps with clear waitlist function 
 // as well so you dont add rooms to every list when checkbox is not check
@@ -28,18 +29,18 @@ roomType.value = ""
 function addClasses() {
   if(this.name === "checkbox") {
     if (checkBox.checked) {
-      roomOptions.forEach(option => option.classList.add('chosen'))
+      roomOptions.forEach(option => option.classList.add("chosen"))
       roomType.value = "Any"
     }
     else {
-      roomOptions.forEach(option => option.classList.remove('chosen'))
+      roomOptions.forEach(option => option.classList.remove("chosen"))
       roomType.value = ""
     }
   } 
     else {
       roomOptions.forEach(option => option.classList.remove("chosen"))
       checkBox.checked = false
-      this.classList.add("chosen");
+      this.classList.add("chosen")
       roomType.value = this.outerText
   }
 }
@@ -59,7 +60,7 @@ minus.addEventListener("click", () => {
   lockerNumber.value <= 1 ? lockerNumber.value == 1 : lockerNumber.value--;
 });
 
-waitlistButton.addEventListener('click', (e) => {
+waitlistButton.addEventListener("click", (e) => {
   console.log(checkBox.checked)
   e.preventDefault()
   createListItem()
@@ -82,8 +83,6 @@ export default function createListItem() {
   setRoom(newElement, deleteIcon)
 
   newElement.addEventListener("contextmenu", popupMenu)
-  
-
 }
 
 function setRoom(newElement, deleteIcon) {
@@ -111,10 +110,6 @@ function setRoom(newElement, deleteIcon) {
     default:
       list = "any"
   }
-  // deleteIcon.addEventListener("click", function(e) {
-  //   removeLocker(e)
-  // }, false)
-  
   newElement.appendChild(deleteIcon)
   // adds locker to each list instead of just one list
   if (list === "any") {
@@ -122,14 +117,9 @@ function setRoom(newElement, deleteIcon) {
       element.appendChild(newElement.cloneNode(true))
       element.addEventListener("contextmenu", popupMenu)
       element.addEventListener('click', removeLocker)
-      // const clonedGroup = document.querySelectorAll(".remove-icon")
-      // // I have to delegate event listener individually because cloning nodes does not bring event listeners with it
-      // for (const clone of clonedGroup) {
-      //   clone.addEventListener("click", removeLocker)
-      // }
     })
+  // adds locker to individual list
   } else {
-    // adds locker to individual list
     list.appendChild(newElement)
     newElement.addEventListener("contextmenu", popupMenu)
     list.addEventListener('click', removeLocker)
@@ -137,18 +127,22 @@ function setRoom(newElement, deleteIcon) {
 }
 
 function removeLocker(e) {
+  // this function accounts for event bubbling which allows me to add an event listener
+  // to the parent element rather than every element of the list, this helped me solve
+  // memory leak issues I had with stacked event listeners
   if (e.target.matches('.remove-icon')) {
-    const xButton = e.target;
-    const locker = xButton.parentNode;
-    const lockerList = locker.parentNode;
-    lockerList.removeChild(locker);
+    const xButton = e.target
+    const locker = xButton.parentNode
+    const lockerList = locker.parentNode
+    lockerList.removeChild(locker)
     popup.classList.remove("active")
+    
   }
 }
 
 function popupMenu(e) {
-  const lockerNumber = e.target
-  console.log(lockerNumber.innerText)
+  const lockerItem = e.target
+  const lockerNumber = lockerItem.textContent.replace(/(×)/ig, '')
   e.preventDefault()
   const { clientX: mouseX, clientY: mouseY } = e
 
@@ -156,7 +150,14 @@ function popupMenu(e) {
   popup.style.left = `${mouseX}px`
 
   popup.classList.add("active")
+
+  deleteAllBtn.innerText = `Delete each ${lockerNumber}`
+  roomReadyBtn.innerText = `${lockerNumber} is Ready!`
+
+  localStorage.setItem("lockernumber", lockerNumber)
 }
+
+let nombre
 
 const scope = document.querySelector("body")
 
@@ -166,7 +167,41 @@ scope.addEventListener("mousedown", function(e) {
   }
 })
 
+deleteAllBtn.addEventListener("click", removeAllLockers)
 
+function removeAllLockers() {
+  // const xButton = e.target
+  // const locker = xButton.parentNode
+  // const lockerList = locker.parentNode
+  const number = localStorage.getItem("lockernumber")
+  console.log(number)
+  filterLockerNumber()
+}
 
-
-
+function filterLockerNumber() {
+  const number = localStorage.getItem("lockernumber")
+  document.querySelectorAll(".roomList").forEach(group => {
+    
+    const lockerNumber = group.querySelector(".locker-text")
+    console.log(Array.from(lockerNumber))
+    if (lockerNumber.textContent == number) {
+      const locker = lockerNumber.parentNode
+      const lockerList = locker.parentNode
+      lockerList.removeChild(locker)
+    }
+    // console.log(number)
+    
+  })
+  // Array.from(allGroups).forEach(element => {
+  //   const listItems = element.getElementsByTagName("li")
+  //   // element.filter(item => item.innerText = number)
+  //   // listItems.filter(item => console.log(item.innerText))
+  //   // for (const names of listItems) {
+  //   //   console.log(names.innerText)
+  //   // }
+  //   // console.log(listItems)
+  //   const numberArray = Array.from(listItems)
+  //   const newList = numberArray.filter(item => item.innerText.replace(/(×)/ig, '') != number)
+  //   console.log(newList)
+  // })
+}
