@@ -132,7 +132,6 @@ function setRoom(newElement, deleteIcon) {
     // adds locker to individual list
     list.appendChild(newElement)
     newElement.addEventListener("contextmenu", popupMenu)
-    // const listBig = document.querySelector('.roomList')
     list.addEventListener('click', removeLocker)
   }
 }
