@@ -61,25 +61,23 @@ minus.addEventListener("click", () => {
 });
 
 waitlistButton.addEventListener("click", (e) => {
-  console.log(checkBox.checked)
   e.preventDefault()
   createListItem()
 });
 
 export default function createListItem() {
-  console.log(roomType.value)
   if (lockerNumber.value.length == 0 || lockerNumber.value <= 0 || roomType.value === "") return
-  const newElement = document.createElement('li')
+  const newElement = document.createElement("li")
   newElement.className = "listItems"
 
-  const lockerNumberText = document.createElement('div')
+  const lockerNumberText = document.createElement("div")
   lockerNumberText.innerText = "Locker Number " + lockerNumber.value
-  lockerNumberText.setAttribute('class', 'locker-text')
+  lockerNumberText.setAttribute("class", "locker-text")
   newElement.appendChild(lockerNumberText)
 
-  const deleteIcon = document.createElement('span');
+  const deleteIcon = document.createElement("span");
   deleteIcon.innerHTML = "&times;"
-  deleteIcon.setAttribute('class', 'remove-icon');
+  deleteIcon.setAttribute("class", "remove-icon");
   setRoom(newElement, deleteIcon)
 
   newElement.addEventListener("contextmenu", popupMenu)
@@ -116,34 +114,38 @@ function setRoom(newElement, deleteIcon) {
     Array.from(allGroups).forEach(element => {
       element.appendChild(newElement.cloneNode(true))
       element.addEventListener("contextmenu", popupMenu)
-      element.addEventListener('click', removeLocker)
+      element.addEventListener("click", removeLocker)
     })
   // adds locker to individual list
   } else {
     list.appendChild(newElement)
     newElement.addEventListener("contextmenu", popupMenu)
-    list.addEventListener('click', removeLocker)
+    list.addEventListener("click", removeLocker)
   }
 }
 
 function removeLocker(e) {
   // this function accounts for event bubbling which allows me to add an event listener
   // to the parent element rather than every element of the list, this helped me solve
-  // memory leak issues I had with stacked event listeners
-  if (e.target.matches('.remove-icon')) {
+  // memory leak issues I had with stacked event listeners for cloned elements
+  if (e.target.matches(".remove-icon")) {
     const xButton = e.target
     const locker = xButton.parentNode
     const lockerList = locker.parentNode
     lockerList.removeChild(locker)
     popup.classList.remove("active")
-    
   }
 }
 
 function popupMenu(e) {
-  const lockerItem = e.target
-  const lockerNumber = lockerItem.textContent.replace(/(×)/ig, '')
   e.preventDefault()
+  const lockerItem = e.target
+  // if contextclick hits the x button or any space outside of list items then it acts as typical right click
+  if (lockerItem.matches(".remove-icon") || lockerItem.matches("#listContainer")) {
+    return
+  }
+  const lockerNumber = lockerItem.textContent.replace(/(×)/ig,"")
+
   const { clientX: mouseX, clientY: mouseY } = e
 
   popup.style.top = `${mouseY}px`
@@ -151,13 +153,11 @@ function popupMenu(e) {
 
   popup.classList.add("active")
 
-  deleteAllBtn.innerText = `Delete each ${lockerNumber}`
-  roomReadyBtn.innerText = `${lockerNumber} is Ready!`
+  deleteAllBtn.innerText = `Delete ${lockerNumber} from all lists`
+  roomReadyBtn.innerText = `${lockerNumber} Room is Ready!`
 
   localStorage.setItem("lockernumber", lockerNumber)
 }
-
-let nombre
 
 const scope = document.querySelector("body")
 
@@ -167,41 +167,19 @@ scope.addEventListener("mousedown", function(e) {
   }
 })
 
-deleteAllBtn.addEventListener("click", removeAllLockers)
+deleteAllBtn.addEventListener("click", removeEachLocker)
 
-function removeAllLockers() {
-  // const xButton = e.target
-  // const locker = xButton.parentNode
-  // const lockerList = locker.parentNode
+function removeEachLocker() {
   const number = localStorage.getItem("lockernumber")
-  console.log(number)
-  filterLockerNumber()
-}
-
-function filterLockerNumber() {
-  const number = localStorage.getItem("lockernumber")
-  document.querySelectorAll(".roomList").forEach(group => {
-    
-    const lockerNumber = group.querySelector(".locker-text")
-    console.log(Array.from(lockerNumber))
-    if (lockerNumber.textContent == number) {
-      const locker = lockerNumber.parentNode
-      const lockerList = locker.parentNode
-      lockerList.removeChild(locker)
-    }
-    // console.log(number)
-    
+  Array.from(allGroups).forEach(lockerList => {
+    const listItems = lockerList.getElementsByTagName("li")
+    const numberArray = Array.from(listItems)
+    numberArray.forEach(locker => {
+      if (locker.textContent.replace(/(×)/ig, '') == number) {
+        const lockerList = locker.parentNode
+        lockerList.removeChild(locker)
+      }
+    })
   })
-  // Array.from(allGroups).forEach(element => {
-  //   const listItems = element.getElementsByTagName("li")
-  //   // element.filter(item => item.innerText = number)
-  //   // listItems.filter(item => console.log(item.innerText))
-  //   // for (const names of listItems) {
-  //   //   console.log(names.innerText)
-  //   // }
-  //   // console.log(listItems)
-  //   const numberArray = Array.from(listItems)
-  //   const newList = numberArray.filter(item => item.innerText.replace(/(×)/ig, '') != number)
-  //   console.log(newList)
-  // })
+  popup.classList.remove("active")
 }
