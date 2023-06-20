@@ -6,7 +6,6 @@ const groupThree = document.getElementById("list3")
 const groupFour = document.getElementById("list4")
 const groupFive = document.getElementById("list5")
 
-
 const allGroups = document.getElementsByClassName("roomList")
 const add = document.getElementById("add")
 const minus = document.getElementById("minus")
@@ -129,10 +128,8 @@ function removeLocker(e) {
   // to the parent element rather than every element of the list, this helped me solve
   // memory leak issues I had with stacked event listeners for cloned elements
   if (e.target.matches(".remove-icon")) {
-    const xButton = e.target
-    const locker = xButton.parentNode
-    const lockerList = locker.parentNode
-    lockerList.removeChild(locker)
+    const locker = e.target.parentNode
+    locker.remove()
     popup.classList.remove("active")
   }
 }
@@ -140,8 +137,9 @@ function removeLocker(e) {
 function popupMenu(e) {
   e.preventDefault()
   const lockerItem = e.target
-  // if contextclick hits the x button or any space outside of list items then it acts as typical right click
-  if (lockerItem.matches(".remove-icon") || lockerItem.matches("#listContainer")) {
+  // if contextclick hits the x button or any space outside of list items then do nothing, 
+  // not sure how to have normal contextmenu event take place
+  if (lockerItem.matches(".remove-icon") || lockerItem.matches(".roomList")) {
     return
   }
   const lockerNumber = lockerItem.textContent.replace(/(×)/ig,"")
@@ -176,8 +174,7 @@ function removeEachLocker() {
     const numberArray = Array.from(listItems)
     numberArray.forEach(locker => {
       if (locker.textContent.replace(/(×)/ig, '') == number) {
-        const lockerList = locker.parentNode
-        lockerList.removeChild(locker)
+        locker.remove()
       }
     })
   })

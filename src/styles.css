@@ -187,6 +187,7 @@ input[type="number"]::-webkit-outer-spin-button {
   flex-direction: column;
   align-items: center;
   text-align: center;
+  cursor: auto;
 }
 
 #listContainer ul:last-child {
