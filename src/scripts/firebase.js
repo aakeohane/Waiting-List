@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, get, child, set } from "firebase/database";
-// import this function from my script.js so that I can reset the DOM with the data that is in firebase if user were to refresh page
-import  createListItem from "./script.js";
+// import these function and variables to avoid repeating
+import { createListItem, obj, groupOne, groupTwo, groupThree, groupFour, groupFive, lockerNumber, roomType } from "./script";
 
 // I am using Firebase to hold array data that will constantly be reset because I wasnt sure of another way
 // to do this. The database holds a very small amount of data and while Firebase doesnt recommend using associative arrays,
@@ -20,15 +20,6 @@ const firebaseConfig = {
 // Initialize Firebase
 initializeApp(firebaseConfig);
 const dbRef = ref(getDatabase())
-
-const groupOne = document.getElementById("list1")
-const groupTwo = document.getElementById("list2")
-const groupThree = document.getElementById("list3")
-const groupFour = document.getElementById("list4")
-const groupFive = document.getElementById("list5")
-
-const lockerNumber = document.getElementById("locker")
-const roomType = document.getElementById("roomType")
 
 const clearWaitlist = document.getElementById("removeAllLockers")
 
@@ -69,6 +60,13 @@ firebaseListArray.map((group) => {
   }).catch((error) => {
     console.error(error);
   });
+})
+
+// this is the result of the listener allowing me to set locker announcement to the locker that is ready for a room
+obj.registerNewListener((val) => {
+  set(child(dbRef, 'Announcements/'), {
+    "Locker Number Ready": `${val}`
+  })
 })
 
 // First time case for using the built in MutationObserver, I am very much a fan of this!

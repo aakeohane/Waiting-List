@@ -1,18 +1,18 @@
 import '../styles.css'
 
-const groupOne = document.getElementById("list1")
-const groupTwo = document.getElementById("list2")
-const groupThree = document.getElementById("list3")
-const groupFour = document.getElementById("list4")
-const groupFive = document.getElementById("list5")
+export const groupOne = document.getElementById("list1")
+export const groupTwo = document.getElementById("list2")
+export const groupThree = document.getElementById("list3")
+export const groupFour = document.getElementById("list4")
+export const groupFive = document.getElementById("list5")
 
 const allGroups = document.getElementsByClassName("roomList")
 const add = document.getElementById("add")
 const minus = document.getElementById("minus")
 
-const lockerNumber = document.getElementById("locker")
+export const lockerNumber = document.getElementById("locker")
 
-const roomType = document.getElementById("roomType")
+export const roomType = document.getElementById("roomType")
 
 const roomOptions = document.querySelectorAll(".room-options")
 const checkBox = document.getElementById("checkBox")
@@ -64,7 +64,7 @@ waitlistButton.addEventListener("click", (e) => {
   createListItem()
 });
 
-export default function createListItem() {
+function createListItem() {
   if (lockerNumber.value.length == 0 || lockerNumber.value <= 0 || roomType.value === "") return
   const newElement = document.createElement("li")
   newElement.className = "listItems"
@@ -180,3 +180,34 @@ function removeEachLocker() {
   })
   popup.classList.remove("active")
 }
+
+// not 100% sure how this works, but I am essentially creating an object that has built in listeners;
+// to listen for a change in the obj.locker value in the lockerReady() function,
+// this then allows me to adjust the value as it changes and let me set that value into firebase since the object
+// is exported
+export const obj = {
+  lockerValue: '',
+  get locker() {
+    return this.lockerValue
+  },
+  set locker(room_Ready_Number) {
+    this.lockerValue = room_Ready_Number
+    this.lockerListener(room_Ready_Number)
+  },
+  lockerListener: function (room_Ready_Number) {},
+  registerNewListener: function (externalListenerFunction) {
+    this.lockerListener = externalListenerFunction
+  }
+}
+
+roomReadyBtn.addEventListener("click", lockerReady)
+
+function lockerReady(e) {
+  const number = localStorage.getItem("lockernumber")
+  obj.locker = number
+  if(confirm(`Would you like to delete each ${number} from all lists?`)) {
+    removeEachLocker()
+  } else e.preventDefault()
+  popup.classList.remove("active")
+}
+export { createListItem }
