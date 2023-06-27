@@ -21,6 +21,8 @@ const popup = document.getElementById("popup-menu")
 const deleteAllBtn = document.getElementById("deleteAll")
 const roomReadyBtn = document.getElementById("roomReady")
 
+export const messageBoard = document.getElementById("messageBoard")
+
 // on refresh and initial, just sets data value to blank, helps with clear waitlist function 
 // as well so you dont add rooms to every list when checkbox is not check
 roomType.value = ""
@@ -64,7 +66,7 @@ waitlistButton.addEventListener("click", (e) => {
   createListItem()
 });
 
-function createListItem() {
+export function createListItem() {
   if (lockerNumber.value.length == 0 || lockerNumber.value <= 0 || roomType.value === "") return
   const newElement = document.createElement("li")
   newElement.className = "listItems"
@@ -181,33 +183,39 @@ function removeEachLocker() {
   popup.classList.remove("active")
 }
 
-// not 100% sure how this works, but I am essentially creating an object that has built in listeners;
+// not 100% sure how this works, but I am essentially creating an object that has built in listeners as properties;
 // to listen for a change in the obj.locker value in the lockerReady() function,
 // this then allows me to adjust the value as it changes and let me set that value into firebase since the object
-// is exported
-export const obj = {
-  lockerValue: '',
-  get locker() {
-    return this.lockerValue
-  },
-  set locker(room_Ready_Number) {
-    this.lockerValue = room_Ready_Number
-    this.lockerListener(room_Ready_Number)
-  },
-  lockerListener: function (room_Ready_Number) {},
-  registerNewListener: function (externalListenerFunction) {
-    this.lockerListener = externalListenerFunction
-  }
-}
+// is exported --> This listener successfully listens to changes happening to the property, because the listener is 
+// triggered from the setter function, every time a new value is assigned to the given property.
+// export const obj = {
+//   lockerValue: '',
+//   get locker() {
+//     return this.lockerValue
+//   },
+//   set locker(room_Ready_Number) {
+//     this.lockerValue = room_Ready_Number
+//     this.lockerListener(room_Ready_Number)
+//   },
+//   lockerListener: function (room_Ready_Number) {},
+//   registerNewListener: function (externalListenerFunction) {
+//     this.lockerListener = externalListenerFunction
+//   }
+// }
 
 roomReadyBtn.addEventListener("click", lockerReady)
 
 function lockerReady(e) {
   const number = localStorage.getItem("lockernumber")
-  obj.locker = number
-  if(confirm(`Would you like to delete each ${number} from all lists?`)) {
+  // obj.locker = number
+  const newMessage = document.createElement("p")
+  newMessage.className = "message"
+  newMessage.innerText = `${number}`
+  messageBoard.appendChild(newMessage)
+
+  if(confirm(`Would you like to delete each ${number} from waitlist? Cancel will still announce ${number} ready on the message board.`)) {
     removeEachLocker()
   } else e.preventDefault()
   popup.classList.remove("active")
 }
-export { createListItem }
+

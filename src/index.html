@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
   <!-- Font Awesome Icons -->
   <link
   rel="stylesheet"
@@ -15,46 +16,51 @@
   />
 </head>
 <body>
-  <form id="addLockerForm">
-    <div id="lockerContainer">
-      <label for="locker number" class="lockerLabel">Locker Number </label>
-      <button id ="minus" type="button" class="lockerButton">
-        <i class="fas fa-minus"></i>
-      </button>
-      <input type="number" class="lockerInput" id="locker" name="locker number" min="1" value="0">
-      <button id ="add" type="button" class="lockerButton">
-        <i class="fas fa-plus"></i>
-      </button>
-    </div>
-    <div class="choose-room-container">
-      <div class="label-container">
-        <label for="room">Choose a Room</label>
-        <div class="checkbox-container">
-          <input id="checkBox" type="checkbox" name="checkbox" class="room-options" autocomplete="off"/>
-          <label for="demoCheckbox">any room</label>
+  <div class="top-row-container">
+    <form id="addLockerForm">
+      <div id="lockerContainer">
+        <label for="locker number" class="lockerLabel">Locker Number </label>
+        <button id ="minus" type="button" class="lockerButton">
+          <i class="fas fa-minus"></i>
+        </button>
+        <input type="number" class="lockerInput" id="locker" name="locker number" min="1" value="0">
+        <button id ="add" type="button" class="lockerButton">
+          <i class="fas fa-plus"></i>
+        </button>
+      </div>
+      <div class="choose-room-container">
+        <div class="label-container">
+          <label for="room">Choose a Room</label>
+          <div class="checkbox-container">
+            <input id="checkBox" type="checkbox" name="checkbox" class="room-options" autocomplete="off"/>
+            <label for="demoCheckbox">any room</label>
+          </div>
         </div>
+        <div class="options-container" id="visibleOptions">
+          <div id="nonTV" role="button"  tabindex="0" class="room-options">Non TV</div>
+          <div id="regularTV" tabindex="0" class="room-options">Regular TV</div>
+          <div id="largeTV" tabindex="0" class="room-options">Large TV</div>
+          <div id="regularSuite" tabindex="0" class="room-options">Regular Suite</div>
+          <div id="deluxeSuite" tabindex="0" class="room-options">Deluxe Suite</div>
+        </div>
+        <select id="roomType" name="room type">
+          <option value="Any">Any</option>  
+          <option value="Non TV" >Non TV</option>
+          <option value="Regular TV" >Regular TV</option>
+          <option value="Large TV" >Large TV</option>
+          <option value="Regular Suite" >Regular Suite</option>
+          <option value="Deluxe Suite" >Deluxe Suite</option>
+        </select>
       </div>
-      <div class="options-container" id="visibleOptions">
-        <div id="nonTV" role="button"  tabindex="0" class="room-options">Non TV</div>
-        <div id="regularTV" tabindex="0" class="room-options">Regular TV</div>
-        <div id="largeTV" tabindex="0" class="room-options">Large TV</div>
-        <div id="regularSuite" tabindex="0" class="room-options">Regular Suite</div>
-        <div id="deluxeSuite" tabindex="0" class="room-options">Deluxe Suite</div>
+      <div class="button-container">
+        <button id="removeAllLockers" class="waitlist-button clear">Clear Waitlist</button>
+        <button id="addToWaitlist" class="waitlist-button add">Add to Waitlist</button>
       </div>
-      <select id="roomType" name="room type">
-        <option value="Any">Any</option>  
-        <option value="Non TV" >Non TV</option>
-        <option value="Regular TV" >Regular TV</option>
-        <option value="Large TV" >Large TV</option>
-        <option value="Regular Suite" >Regular Suite</option>
-        <option value="Deluxe Suite" >Deluxe Suite</option>
-      </select>
+    </form>
+    <div class="lockers-ready-container" id="messageBoard">
+      <h3>Lockers Ready for Rooms</h3>
     </div>
-    <div class="button-container">
-      <button id="removeAllLockers" class="waitlist-button clear">Clear Waitlist</button>
-      <button id="addToWaitlist" class="waitlist-button add">Add to Waitlist</button>
-    </div>
-  </form>
+  </div>
   <div class="custom-popup-menu" id="popup-menu">
     <ul>
       <li>

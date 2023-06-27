@@ -13,6 +13,19 @@ body {
   align-items: center;
 }
 
+.top-row-container {
+  display: flex;
+  width: 100%;
+  height: fit-content;
+}
+
+.lockers-ready-container {
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
 #addLockerForm {
   display: flex;
   flex-direction: column;
@@ -173,6 +186,7 @@ input[type="number"]::-webkit-outer-spin-button {
   display: flex;
   justify-content: space-apart;
   width: 100%;
+  border-top: 1px solid rgb(0, 0, 0, 0.2);
 }
 
 #listContainer ul {
@@ -182,12 +196,17 @@ input[type="number"]::-webkit-outer-spin-button {
   list-style-type: none;
   position: relative;
   height: 100vh;
-  border-right: 1px solid rgb(0, 0, 0, 0.2);
+  border-right: 1px solid rgba(255, 255, 255, 0.3);
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
   cursor: auto;
+  padding-top: 20px;
+  font-size: 30px;
+  color: white;
+  background-color: hsl(0, 0%, 13%);
+  font-family: "Bebas Neue", sans-serif;
 }
 
 #listContainer ul:last-child {

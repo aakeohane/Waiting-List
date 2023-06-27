@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, get, child, set } from "firebase/database";
 // import these function and variables to avoid repeating
-import { createListItem, obj, groupOne, groupTwo, groupThree, groupFour, groupFive, lockerNumber, roomType } from "./script";
+import { createListItem, obj, groupOne, groupTwo, groupThree, groupFour, groupFive, lockerNumber, roomType, messageBoard } from "./script";
 
 // I am using Firebase to hold array data that will constantly be reset because I wasnt sure of another way
 // to do this. The database holds a very small amount of data and while Firebase doesnt recommend using associative arrays,
@@ -17,7 +17,6 @@ const firebaseConfig = {
   appId: "1:835959686846:web:c586727259a59ccdfb80ef"
 };
 
-// Initialize Firebase
 initializeApp(firebaseConfig);
 const dbRef = ref(getDatabase())
 
@@ -62,12 +61,10 @@ firebaseListArray.map((group) => {
   });
 })
 
-// this is the result of the listener allowing me to set locker announcement to the locker that is ready for a room
-obj.registerNewListener((val) => {
-  set(child(dbRef, 'Announcements/'), {
-    "Locker Number Ready": `${val}`
-  })
-})
+// this is the result of the listener allowing me to set locker announcement to message board for room ready
+// obj.registerNewListener((val) => {
+//   set(child(dbRef, 'Announcements/Locker Number Ready'), val)
+// })
 
 // First time case for using the built in MutationObserver, I am very much a fan of this!
 // I use this to check for "mutations" of both adding to a list and also editing them with the Sortable.js module
@@ -101,8 +98,18 @@ observer.observe(groupThree, config);
 observer.observe(groupFour, config);
 observer.observe(groupFive, config);
 
+const observer1 = new MutationObserver(function(mutations) {
+  for (const mutation of mutations) {
+    const listRef = child(dbRef, `Announcements/Locker Number Ready/`)
+    const messageBoardQuery = messageBoard.querySelectorAll('p')
+    const nodePList = Array.from(messageBoardQuery, function(item) {
+      return item.innerHTML
+    })
+    const nodeArray = nodePList.map((locker) => (locker))
+      if (nodeArray.length !== 0) {
+        set(listRef, nodeArray)
+      } else set(listRef, "")
+  };
+});
 
-
-
-
-
+observer1.observe(messageBoard, config);
