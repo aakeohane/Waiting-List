@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, get, child, set } from "firebase/database";
 // import these function and variables to avoid repeating
-import { createListItem, obj, groupOne, groupTwo, groupThree, groupFour, groupFive, lockerNumber, roomType, messageBoard } from "./script";
+import { createListItem, lockerReady, groupOne, groupTwo, groupThree, groupFour, groupFive, lockerNumber, roomType, messageBoard } from "./script";
 
 // I am using Firebase to hold array data that will constantly be reset because I wasnt sure of another way
 // to do this. The database holds a very small amount of data and while Firebase doesnt recommend using associative arrays,
@@ -37,6 +37,19 @@ clearWaitlist.addEventListener("click", (e) => {
 // set array for each group list so that I can iterate through and add their list items (<li/>) from firebase data
 const firebaseListArray = [groupOne, groupTwo, groupThree, groupFour, groupFive]
 
+// this function happens on page load to grab firebase data and append to DOM if available
+get(child(dbRef, `Announcements/Locker Number Ready/`)).then((snapshot) => {
+  if (snapshot.exists()) {
+    const lockerReadyArr = snapshot.val()
+    lockerReadyArr.map(locker => {
+      localStorage.setItem("lockernumber", locker)
+      lockerReady(locker)
+    })
+  } else {
+    console.log("No data available");
+  }
+})
+
 // this function will happen only once upon each page load and refresh, nothing will be added if the firebase data for that specific list is empty string
 firebaseListArray.map((group) => {
   let groupTitle = group.title
@@ -46,11 +59,11 @@ firebaseListArray.map((group) => {
       if (firebaseArray !== "") {
         // I have to change the values to work with the firebase data, hence overriding the values from the original script
         // regex is used to pull the number from the string and create the "lockerNumber.value"
-        firebaseArray.map((fbItem => {
+        firebaseArray.map(fbItem => {
           createListItem(roomType.value = `${groupTitle}` , lockerNumber.value = fbItem.match(/\d+/)[0])
           roomType.value = ""
         }
-        ))
+        )
       }
     } else {
       roomType.value = ""
@@ -60,11 +73,6 @@ firebaseListArray.map((group) => {
     console.error(error);
   });
 })
-
-// this is the result of the listener allowing me to set locker announcement to message board for room ready
-// obj.registerNewListener((val) => {
-//   set(child(dbRef, 'Announcements/Locker Number Ready'), val)
-// })
 
 // First time case for using the built in MutationObserver, I am very much a fan of this!
 // I use this to check for "mutations" of both adding to a list and also editing them with the Sortable.js module
@@ -103,7 +111,7 @@ const observer1 = new MutationObserver(function(mutations) {
     const listRef = child(dbRef, `Announcements/Locker Number Ready/`)
     const messageBoardQuery = messageBoard.querySelectorAll('p')
     const nodePList = Array.from(messageBoardQuery, function(item) {
-      return item.innerHTML
+      return "Locker Number " + item.innerText.match(/\d+/)[0]
     })
     const nodeArray = nodePList.map((locker) => (locker))
       if (nodeArray.length !== 0) {

@@ -183,39 +183,26 @@ function removeEachLocker() {
   popup.classList.remove("active")
 }
 
-// not 100% sure how this works, but I am essentially creating an object that has built in listeners as properties;
-// to listen for a change in the obj.locker value in the lockerReady() function,
-// this then allows me to adjust the value as it changes and let me set that value into firebase since the object
-// is exported --> This listener successfully listens to changes happening to the property, because the listener is 
-// triggered from the setter function, every time a new value is assigned to the given property.
-// export const obj = {
-//   lockerValue: '',
-//   get locker() {
-//     return this.lockerValue
-//   },
-//   set locker(room_Ready_Number) {
-//     this.lockerValue = room_Ready_Number
-//     this.lockerListener(room_Ready_Number)
-//   },
-//   lockerListener: function (room_Ready_Number) {},
-//   registerNewListener: function (externalListenerFunction) {
-//     this.lockerListener = externalListenerFunction
-//   }
-// }
-
 roomReadyBtn.addEventListener("click", lockerReady)
 
-function lockerReady(e) {
+export function lockerReady(e) {
   const number = localStorage.getItem("lockernumber")
-  // obj.locker = number
   const newMessage = document.createElement("p")
-  newMessage.className = "message"
+  newMessage.setAttribute("class", "readyMessage");
   newMessage.innerText = `${number}`
   messageBoard.appendChild(newMessage)
 
-  if(confirm(`Would you like to delete each ${number} from waitlist? Cancel will still announce ${number} ready on the message board.`)) {
-    removeEachLocker()
-  } else e.preventDefault()
+  const deleteIcon = document.createElement("button");
+  deleteIcon.setAttribute("class", "trash")
+  deleteIcon.innerHTML = '<i class="fas fa-trash"></i>'
+  newMessage.appendChild(deleteIcon)
+
+  // this checks for whether the function is being called manually with a click function aka the popUp menu or if not, then its being called by firebase to append on refresh or page load
+  if(e.type === "click") {
+    if(confirm(`Would you like to delete each ${number} from waitlist? Cancel will still announce ${number} ready on the message board.`)) {
+      removeEachLocker()
+    } else e.preventDefault()
+  }
   popup.classList.remove("active")
 }
 

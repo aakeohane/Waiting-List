@@ -24,6 +24,33 @@ body {
   display: flex;
   flex-direction: column;
   text-align: center;
+  flex-wrap: wrap;
+}
+
+.readyMessage {
+  font-size: 20px;
+}
+
+.readyMessage:hover {
+  cursor: pointer;
+}
+
+.delete-icon {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: red;
+  opacity: 1;
+  font-size: 26px;
+  border-radius: 50%;
+  text-align: center;
+  -webkit-transition: 300ms ease-in-out;
+  -moz-transition: 300ms ease-in-out;
+  -o-transition: 300ms ease-in-out;
+  transition: 300ms ease-in-out;
+  /* z-index allows for remove icon to be hovered outside of listitem area */
+  z-index: 1;
 }
 
 #addLockerForm {
