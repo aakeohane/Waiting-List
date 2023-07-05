@@ -41,10 +41,12 @@ const firebaseListArray = [groupOne, groupTwo, groupThree, groupFour, groupFive]
 get(child(dbRef, `Announcements/Locker Number Ready/`)).then((snapshot) => {
   if (snapshot.exists()) {
     const lockerReadyArr = snapshot.val()
-    lockerReadyArr.map(locker => {
-      localStorage.setItem("lockernumber", locker)
-      lockerReady(locker)
-    })
+    if (lockerReadyArr !== "") {
+      lockerReadyArr.map(locker => {
+        localStorage.setItem("lockernumber", locker)
+        lockerReady(locker)
+      })
+    }
   } else {
     console.log("No data available");
   }
@@ -109,7 +111,7 @@ observer.observe(groupFive, config);
 const observer1 = new MutationObserver(function(mutations) {
   for (const mutation of mutations) {
     const listRef = child(dbRef, `Announcements/Locker Number Ready/`)
-    const messageBoardQuery = messageBoard.querySelectorAll('p')
+    const messageBoardQuery = messageBoard.querySelectorAll('div')
     const nodePList = Array.from(messageBoardQuery, function(item) {
       return "Locker Number " + item.innerText.match(/\d+/)[0]
     })

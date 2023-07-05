@@ -122,6 +122,7 @@ function setRoom(newElement, deleteIcon) {
     list.appendChild(newElement)
     newElement.addEventListener("contextmenu", popupMenu)
     list.addEventListener("click", removeLocker)
+    newElement.setAttribute("title", list.title)
   }
 }
 
@@ -187,10 +188,12 @@ roomReadyBtn.addEventListener("click", lockerReady)
 
 export function lockerReady(e) {
   const number = localStorage.getItem("lockernumber")
-  const newMessage = document.createElement("p")
+  const newMessage = document.createElement("div")
   newMessage.setAttribute("class", "readyMessage");
   newMessage.innerText = `${number}`
   messageBoard.appendChild(newMessage)
+
+  newMessage.addEventListener("click", removeMessageBoardLocker)
 
   const deleteIcon = document.createElement("button");
   deleteIcon.setAttribute("class", "trash")
@@ -204,5 +207,14 @@ export function lockerReady(e) {
     } else e.preventDefault()
   }
   popup.classList.remove("active")
+}
+
+function removeMessageBoardLocker(e) {
+  // this function accounts for event bubbling which allows me to add an event listener
+  // to the parent element and target the trash symbol with the click rather than every element
+  if (e.target.matches(".fa-trash")) {
+    const locker = e.target.parentNode.parentNode
+    locker.remove()
+  }
 }
 
