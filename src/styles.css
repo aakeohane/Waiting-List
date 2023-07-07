@@ -8,26 +8,13 @@
 
 body {
   display: flex;
-  justify-content: center;
   flex-direction: column;
-  align-items: center;
 }
 
 .top-row-container {
   display: flex;
-  width: 100%;
-  height: 100%;
-  max-height: 400px;
-}
-
-.lockers-ready-container {
-  width: 40%;
-  display: flex;
-  flex-direction: column;
-  text-align: center;
+  justify-content: space-around;
   flex-wrap: wrap;
-  height: 100%;
-  max-height: 400px;
 }
 
 .delete-icon {
@@ -51,16 +38,26 @@ body {
 #addLockerForm {
   display: flex;
   flex-direction: column;
-  /* width: fit-content; */
-  gap: 10px;
+  justify-content: space-between;
   margin: 10px 10px 20px 10px;
   padding: 10px;
   box-shadow: 0 0 3px 0 rgb(90, 200, 250);
+  overflow: scroll;
+  gap: 10px;
+  height: fit-content;
+  max-width: 600px;
+  /* width: 100%; */
 }
 
 #lockerContainer {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.number-input-container {
+  display: flex;
 }
 
 input[type="number"]::-webkit-inner-spin-button,
@@ -69,7 +66,7 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .lockerLabel {
-  padding-right: 40px;
+  padding-right: 10px;
 }
 
 .lockerInput {
@@ -78,7 +75,6 @@ input[type="number"]::-webkit-outer-spin-button {
   width: 60px;
   font-size: 18px;
   cursor: pointer;
-  margin: 0 3px 0 3px;
   color: rgb(90, 200, 250);
   cursor: auto;
 }
@@ -115,10 +111,10 @@ input[type="number"]::-webkit-outer-spin-button {
 
 .options-container {
   display: flex;
-  max-width: 800px;
-  width: auto;
   flex-wrap: wrap;
-  margin: 0 0 0 5px;
+  align-items: center;
+  margin: 0 0 0 10px;
+  width: 400px;
 }
 
 .room-options {
@@ -206,8 +202,7 @@ input[type="number"]::-webkit-outer-spin-button {
 
 #listContainer {
   display: flex;
-  justify-content: space-apart;
-  width: 100%;
+  /* width: 100%; */
   border-top: 1px solid rgb(0, 0, 0, 0.2);
 }
 
@@ -369,20 +364,33 @@ input[type="number"]::-webkit-outer-spin-button {
   padding: 0;
 }
 
+.lockers-ready-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.locker-number-items-container {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  flex-wrap: wrap;
+  height: 250px;
+  gap: 2px;
+}
+
 .readyMessage {
   border-radius: 3px;
-  display: flex;
   position: relative;
   color: rgb(0, 122, 255);
   font-size: 15px;
   background-color: transparent;
   box-shadow: 0px 0px 3px 0px rgb(90, 200, 250);
-  position: relative;
   padding: 5px;
-  width: 100%;
-  max-width: 200px;
+  padding-right: 50px;
   margin: 3px;
   cursor: default;
+  text-align: left;
 }
 
 .readyMessage:hover > .trash {

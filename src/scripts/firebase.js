@@ -112,10 +112,10 @@ const observer1 = new MutationObserver(function(mutations) {
   for (const mutation of mutations) {
     const listRef = child(dbRef, `Announcements/Locker Number Ready/`)
     const messageBoardQuery = messageBoard.querySelectorAll('div')
-    const nodePList = Array.from(messageBoardQuery, function(item) {
+    const nodeDivList = Array.from(messageBoardQuery, function(item) {
       return "Locker Number " + item.innerText.match(/\d+/)[0]
     })
-    const nodeArray = nodePList.map((locker) => (locker))
+    const nodeArray = nodeDivList.map((locker) => (locker))
       if (nodeArray.length !== 0) {
         set(listRef, nodeArray)
       } else set(listRef, "")
