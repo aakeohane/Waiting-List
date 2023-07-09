@@ -74,6 +74,7 @@ export function createListItem() {
   const lockerNumberText = document.createElement("div")
   lockerNumberText.innerText = "Locker Number " + lockerNumber.value
   lockerNumberText.setAttribute("class", "locker-text")
+  lockerNumberText.setAttribute("title", roomType.value)
   newElement.appendChild(lockerNumberText)
 
   const deleteIcon = document.createElement("span");
@@ -113,6 +114,8 @@ function setRoom(newElement, deleteIcon) {
   // adds locker to each list instead of just one list
   if (list === "any") {
     Array.from(allGroups).forEach(element => {
+      newElement.setAttribute("title", element.title)
+      newElement.firstChild.setAttribute("title", element.title)
       element.appendChild(newElement.cloneNode(true))
       element.addEventListener("contextmenu", popupMenu)
       element.addEventListener("click", removeLocker)
@@ -147,6 +150,8 @@ function popupMenu(e) {
   }
   const lockerNumber = lockerItem.textContent.replace(/(×)/ig,"")
 
+  const listName = lockerItem.title
+
   const { clientX: mouseX, clientY: mouseY } = e
 
   popup.style.top = `${mouseY}px`
@@ -158,6 +163,7 @@ function popupMenu(e) {
   roomReadyBtn.innerText = `${lockerNumber} Room is Ready!`
 
   localStorage.setItem("lockernumber", lockerNumber)
+  localStorage.setItem("listName", listName)
 }
 
 const scope = document.querySelector("body")
@@ -188,8 +194,10 @@ roomReadyBtn.addEventListener("click", lockerReady)
 
 export function lockerReady(e) {
   const number = localStorage.getItem("lockernumber")
+  const listName = localStorage.getItem("listName")
   const newMessage = document.createElement("div")
   newMessage.setAttribute("class", "readyMessage");
+  newMessage.setAttribute("title", listName)
   newMessage.innerText = `${number}`
   messageBoard.appendChild(newMessage)
 

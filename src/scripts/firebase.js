@@ -43,7 +43,8 @@ get(child(dbRef, `Announcements/Locker Number Ready/`)).then((snapshot) => {
     const lockerReadyArr = snapshot.val()
     if (lockerReadyArr !== "") {
       lockerReadyArr.map(locker => {
-        localStorage.setItem("lockernumber", locker)
+        localStorage.setItem("lockernumber", locker["Locker Number"])
+        localStorage.setItem("listName", locker["Room"])
         lockerReady(locker)
       })
     }
@@ -111,9 +112,14 @@ observer.observe(groupFive, config);
 const observer1 = new MutationObserver(function(mutations) {
   for (const mutation of mutations) {
     const listRef = child(dbRef, `Announcements/Locker Number Ready/`)
+    
     const messageBoardQuery = messageBoard.querySelectorAll('div')
     const nodeDivList = Array.from(messageBoardQuery, function(item) {
-      return "Locker Number " + item.innerText.match(/\d+/)[0]
+      // return "Locker Number " + item.innerText.match(/\d+/)[0]
+      return {
+        "Room": item.title,
+        "Locker Number": item.innerText
+      }
     })
     const nodeArray = nodeDivList.map((locker) => (locker))
       if (nodeArray.length !== 0) {
