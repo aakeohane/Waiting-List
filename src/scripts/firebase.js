@@ -63,7 +63,7 @@ firebaseListArray.map((group) => {
         // I have to change the values to work with the firebase data, hence overriding the values from the original script
         // regex is used to pull the number from the string and create the "lockerNumber.value"
         firebaseArray.map(fbItem => {
-          createListItem(roomType.value = `${groupTitle}` , lockerNumber.value = fbItem.match(/\d+/)[0])
+          createListItem(roomType.value = `${groupTitle}` , lockerNumber.value = fbItem["Locker Number"].match(/\d+/)[0])
           roomType.value = ""
         }
         )
@@ -88,8 +88,14 @@ const callback = (mutationList, observer) => {
       const category = mutation.target.title
       const groupLiQuery = ((document.getElementById(`${group}`)).querySelectorAll('li'))
       const nodeList = Array.from(groupLiQuery, function(item) {
-        // removes weird x symbol, not sure how that is there?
-        return item.textContent.replace(/(×)/ig, '')
+        // have to reset attributes for any mutations for title to work correctly
+        item.setAttribute("title", category)
+        item.firstChild.setAttribute("title", category)
+        return {
+          "Room": category,
+          // replace function removes weird x symbol, not sure how that is there?
+          "Locker Number": item.textContent.replace(/(×)/ig, '')
+        }
       })
       const listRef = child(dbRef, `Waiting Lists/` + `${category}/`)
       const nodeArray = nodeList.map((locker) => (locker))
