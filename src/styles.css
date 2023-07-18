@@ -363,6 +363,11 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .lockers-ready-container {
+  /* position: relative;
+  height: 230px;
+  align-items: center;
+  overflow-y: hidden; */
+
   display: flex;
   flex-direction: column;
   margin: 5px 50px 0 50px;
@@ -370,6 +375,11 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .locker-number-items-container {
+  /* position: absolute;
+  height: inherit;
+  padding-top: 30px;
+  top: 0%; */
+
   display: flex;
   flex-direction: column;
   align-content: center;
@@ -377,6 +387,23 @@ input[type="number"]::-webkit-outer-spin-button {
   height: 230px;
   flex-grow: 100;
   gap: 2px;
+}
+
+/* #messageBoard {
+  height: auto;
+} */
+
+.animateList {
+  animation: primary 3s linear infinite;
+}
+
+@keyframes primary {
+  from {
+    top: 0%;
+  }
+  to {
+    top: -100%;
+  }
 }
 
 .readyMessage {
