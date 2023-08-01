@@ -134,8 +134,8 @@ input[type="number"]::-webkit-outer-spin-button {
 
 .room-options:hover {
   border: 2px solid rgb(90, 200, 250);
-  color: rgb(90, 200, 250);
 }
+
 .chosen,
 .chosen:hover {
   background-color: rgb(90, 200, 250);
@@ -317,6 +317,10 @@ input[type="number"]::-webkit-outer-spin-button {
 
 .dragged {
   background: rgb(255, 204, 0);
+}
+
+.dragged > .locker-text {
+  color: white;
 }
 
 .custom-popup-menu {
