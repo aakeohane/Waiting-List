@@ -6,6 +6,8 @@ const groupThree = document.getElementById("list3")
 const groupFour = document.getElementById("list4")
 const groupFive = document.getElementById("list5")
 
+// const lockersReady = document.getElementById("messageBoard")
+
 
 const defaultSort = {
   group: 'shared',
@@ -19,3 +21,4 @@ const sortable2 = Sortable.create(groupTwo, defaultSort)
 const sortable3 = Sortable.create(groupThree, defaultSort)
 const sortable4 = Sortable.create(groupFour, defaultSort)
 const sortable5 = Sortable.create(groupFive, defaultSort)
+

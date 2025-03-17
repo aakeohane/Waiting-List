@@ -21,11 +21,45 @@ const popup = document.getElementById("popup-menu")
 const deleteAllBtn = document.getElementById("deleteAll")
 const roomReadyBtn = document.getElementById("roomReady")
 
-export const messageBoard = document.getElementById("messageBoard")
 
 // on refresh and initial, just sets data value to blank, helps with clear waitlist function 
 // as well so you dont add rooms to every list when checkbox is not check
 roomType.value = ""
+let lockerItem = null
+
+export const messageBoard = document.getElementById("messageBoard")
+
+const lockersReadyContainer = document.getElementById("lockersReadyContainer")
+
+messageBoard.addEventListener("drop", addViaDrag)
+
+messageBoard.addEventListener("dragenter", (event) => {
+  if (event.target.classList.contains("dropzone")) {
+    lockersReadyContainer.classList.add("dragover")
+    Array.from(event.target.children).forEach(element => {
+      element.classList.add("dragover")
+      element.style.pointerEvents = "none";
+      
+    })
+  }
+})
+
+messageBoard.addEventListener("dragover", (event) => {
+  // prevent default to allow drop
+  event.preventDefault();
+
+});
+
+messageBoard.addEventListener("dragleave", (event) => {
+  // reset background of potential drop target when the draggable element leaves it
+  if (event.target.classList.contains("dropzone")) {
+    lockersReadyContainer.classList.remove("dragover")
+    Array.from(event.target.children).forEach(element => {
+      element.classList.remove("dragover")
+      element.style.pointerEvents = "all";
+    })
+  }
+});
 
 function addClasses() {
   if(this.name === "checkbox") {
@@ -119,14 +153,32 @@ function setRoom(newElement, deleteIcon) {
       element.appendChild(newElement.cloneNode(true))
       element.addEventListener("contextmenu", popupMenu)
       element.addEventListener("click", removeLocker)
+      element.addEventListener("dragstart", dragStore)
     })
   // adds locker to individual list
   } else {
     list.appendChild(newElement)
+    newElement.setAttribute("title", list.title)
     newElement.addEventListener("contextmenu", popupMenu)
     list.addEventListener("click", removeLocker)
-    newElement.setAttribute("title", list.title)
+    newElement.addEventListener("dragstart", dragStore)
   }
+}
+
+// function that stores locker info of the dragged element so that user can mark locker ready by dragging into dropzone
+function dragStore(event) {
+  lockerItem = event.target
+  // if contextclick hits the x button or any space outside of list items then do nothing, 
+  // not sure how to have normal contextmenu event take place
+  // if (lockerItem.matches(".remove-icon") || lockerItem.matches(".roomList")) {
+  //   return
+  // }
+  const lockerNumber = lockerItem.textContent.replace(/(×)/ig,"")
+
+  const listName = lockerItem.title
+
+  localStorage.setItem("lockernumber", lockerNumber)
+  localStorage.setItem("listName", listName)
 }
 
 function removeLocker(e) {
@@ -160,10 +212,25 @@ function popupMenu(e) {
   popup.classList.add("active")
 
   deleteAllBtn.innerText = `Delete ${lockerNumber} from all lists`
-  roomReadyBtn.innerText = `${lockerNumber} Room is Ready!`
+  roomReadyBtn.innerText = `Mark room ready for ${lockerNumber}`
 
   localStorage.setItem("lockernumber", lockerNumber)
   localStorage.setItem("listName", listName)
+}
+
+function addViaDrag(event) {
+  // prevent default actions when accessing drop event listener (open as a link for some elements)
+  event.preventDefault();
+  // move dragged element to the selected drop target
+  if (event.target.classList.contains("dropzone")) {
+    lockerReady(event)
+    lockersReadyContainer.classList.remove("dragover")
+    lockerItem = null
+    Array.from(event.target.children).forEach(element => {
+      element.classList.remove("dragover")
+      element.style.pointerEvents = "all";
+    })
+  }
 }
 
 const scope = document.querySelector("body")
@@ -192,7 +259,7 @@ function removeEachLocker() {
 
 roomReadyBtn.addEventListener("click", lockerReady)
 
-export function lockerReady(e) {
+export function lockerReady(event) {
   const number = localStorage.getItem("lockernumber")
   const listName = localStorage.getItem("listName")
   const newMessage = document.createElement("div")
@@ -209,10 +276,10 @@ export function lockerReady(e) {
   newMessage.appendChild(deleteIcon)
 
   // this checks for whether the function is being called manually with a click function aka the popUp menu or if not, then its being called by firebase to append on refresh or page load
-  if(e.type === "click") {
+  if(event.type === "click" || event.type === "drop") {
     if(confirm(`Would you like to delete each ${number} from waitlist? Cancel will still announce ${number} ready on the message board.`)) {
       removeEachLocker()
-    } else e.preventDefault()
+    } else event.preventDefault()
   }
   popup.classList.remove("active")
 }

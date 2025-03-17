@@ -247,6 +247,12 @@ input[type="number"]::-webkit-outer-spin-button {
   height: 30px;
   margin: 5px;
   cursor: pointer;
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old Firefox */
+  -ms-user-select: none; /* IE/Edge */
+  user-select: none; /* Chrome, Opera and Firefox */
 }
 
 .listItems::before {
@@ -268,6 +274,7 @@ input[type="number"]::-webkit-outer-spin-button {
 
 .listItems:hover {
   outline: 1px solid rgb(90, 200, 250);
+  cursor: grab !important;
 }
 
 .locker-text {
@@ -317,6 +324,11 @@ input[type="number"]::-webkit-outer-spin-button {
 
 .dragged {
   background: rgb(255, 204, 0);
+  cursor: move !important; /* fallback: no `url()` support or images disabled */
+  cursor: -webkit-grabbing !important; /* Chrome 1-21, Safari 4+ */
+  cursor: -moz-grabbing !important; /* Firefox 1.5-26 */
+  cursor: grabbing !important; /* W3C standards syntax, should come least */
+  /* cursor: grab; */
 }
 
 .dragged > .locker-text {
@@ -324,7 +336,7 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .custom-popup-menu {
-  width: 150px;
+  width: 250px;
   box-shadow: 0 4px 8px -2px rgba(0, 0, 0, 0.3);
   position: absolute;
   z-index: 100;
@@ -339,25 +351,22 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .custom-popup-menu ul li a {
+  box-sizing: border-box;
   text-decoration: none;
   font-family: "Roboto", sans-serif;
-  padding: 10px 16px;
+  padding: 10px;
   display: inline-block;
   font-size: 12px;
   font-weight: bold;
   color: #222;
   text-align: center;
-  background: #fff;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  background: lightgray;
   width: 100%;
-  box-sizing: border-box;
-  border-left: 4px solid transparent;
   transition: all 400ms ease;
 }
 
 .custom-popup-menu ul li a:hover {
-  background: #f1faee;
-  border-left: 4px solid rgb(52, 199, 89);
+  background: #cae9f3;
 }
 
 .custom-popup-menu ul {
@@ -366,24 +375,38 @@ input[type="number"]::-webkit-outer-spin-button {
   padding: 0;
 }
 
-.lockers-ready-container {
-  /* position: relative;
-  height: 230px;
-  align-items: center;
-  overflow-y: hidden; */
+.custom-popup-menu ul li:first-child a {
+  border-radius: 5px 5px 0 0;
+}
 
+.custom-popup-menu::before {
+  background-color: rgba(0, 0, 0, 0.2);
+  bottom: 49%;
+  content: "";
+  display: block;
+  height: 1px;
+  left: 50%;
+  position: absolute;
+  transform: translate(-50%, 0);
+  width: 90%;
+}
+
+.custom-popup-menu ul li:nth-child(2) a {
+  border-radius: 0 0 5px 5px;
+}
+
+.lockers-ready-container {
   display: flex;
   flex-direction: column;
-  margin: 5px 50px 0 50px;
-  gap: 5px;
+  justify-content: flex-start;
+  align-content: center;
+  gap: 10px;
+  width: 50vw;
+  margin: 20px 0;
+  padding-top: 10px;
 }
 
 .locker-number-items-container {
-  /* position: absolute;
-  height: inherit;
-  padding-top: 30px;
-  top: 0%; */
-
   display: flex;
   flex-direction: column;
   align-content: center;
@@ -391,6 +414,22 @@ input[type="number"]::-webkit-outer-spin-button {
   height: 230px;
   flex-grow: 100;
   gap: 2px;
+  width: auto;
+}
+
+h3 {
+  text-align: center;
+}
+
+.dropzone.dragover {
+  background-color: #f0f0f0;
+  opacity: 0.9;
+  background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='20' ry='20' stroke='black' stroke-width='7' stroke-dasharray='6%2c 14' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
+  border-radius: 20px;
+}
+
+.dropzone.dragover:hover {
+  cursor: grab;
 }
 
 /* #messageBoard {
@@ -422,6 +461,12 @@ input[type="number"]::-webkit-outer-spin-button {
   margin: 3px;
   cursor: default;
   text-align: left;
+}
+
+/* this allows me to drag over the elements and keep the dropzone highlighted 
+without the lockers getting in the way of the drag enter eventlistener */
+.readyMessage.dragover {
+  z-index: -10;
 }
 
 .readyMessage:hover > .trash {
