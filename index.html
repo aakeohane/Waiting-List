@@ -17,7 +17,7 @@
 </head>
 <body>
   <div class="top-row-container">
-    <form id="addLockerForm">
+    <form class="add-locker-container" id="addLockerForm">
         <div id="lockerContainer">
           <label for="locker" class="lockerLabel">Locker Number </label>
           <div class="number-input-container">
@@ -59,9 +59,9 @@
           <button id="addToWaitlist" class="waitlist-button add">Add to Waitlist</button>
         </div>
     </form>
-    <div class="lockers-ready-container">
+    <div class="lockers-ready-container dropzone" id="lockersReadyContainer">
       <h3>Lockers Ready for Rooms</h3>
-      <div class="locker-number-items-container" id="messageBoard"></div>
+      <div class="locker-number-items-container dropzone" id="messageBoard" ></div>
     </div>
   </div>
   <div class="custom-popup-menu" id="popup-menu">
