@@ -168,11 +168,6 @@ function setRoom(newElement, deleteIcon) {
 // function that stores locker info of the dragged element so that user can mark locker ready by dragging into dropzone
 function dragStore(event) {
   lockerItem = event.target
-  // if contextclick hits the x button or any space outside of list items then do nothing, 
-  // not sure how to have normal contextmenu event take place
-  // if (lockerItem.matches(".remove-icon") || lockerItem.matches(".roomList")) {
-  //   return
-  // }
   const lockerNumber = lockerItem.textContent.replace(/(×)/ig,"")
 
   const listName = lockerItem.title
@@ -276,11 +271,12 @@ export function lockerReady(event) {
   newMessage.appendChild(deleteIcon)
 
   // this checks for whether the function is being called manually with a click function aka the popUp menu or if not, then its being called by firebase to append on refresh or page load
-  if(event.type === "click" || event.type === "drop") {
-    if(confirm(`Would you like to delete each ${number} from waitlist? Cancel will still announce ${number} ready on the message board.`)) {
+  if(event.type === "drop") {
+    if(confirm(`Would you like to announce ${number} for a ${listName} ${(listName === "Non TV") || (listName === "Regular TV") || (listName === "Large TV") ? "room" : null} ready on the message board?`)) {
       removeEachLocker()
-    } else event.preventDefault()
+    } else return
   }
+  removeEachLocker()
   popup.classList.remove("active")
 }
 
