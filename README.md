@@ -5,7 +5,7 @@ Front desk staff use this tool to add clients to the waitlist as they
 request rooms, with updates instantly reflected on the customer-facing 
 display screen.
 
-Part of a two-part system — see the companion repo: 
+Part of a two-part system: see the companion repo: 
 [screenreader-waitlist](https://github.com/aakeohane/screenreader-waitlist)
 
 ## Features ✅
@@ -35,10 +35,10 @@ npm run build  # production build
 
 This was one of my favorite freelance projects because it solved a real, 
 everyday problem for a real client. Building something that staff would 
-actually use every day pushed me to think beyond just making it work — 
-it had to be fast, simple, and reliable under pressure. Connecting two 
+actually use every day pushed me to think beyond just making it work.
+it had to be fast, simple, and easy to use. Connecting two 
 separate interfaces through Firestore in real time and watching them stay 
-in sync was genuinely satisfying to pull off.
+in sync was really amazing to see, and I felt very proud of what I was able to do.
 
 ### Author
 
