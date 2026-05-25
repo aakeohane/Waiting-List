@@ -1,43 +1,49 @@
 # Waitlist Management System
 
-The staff-facing interface for managing a real-time client queue. Front 
-desk staff use this application to add clients to the waitlist as they 
-request rooms, with updates reflected instantly on the customer-facing 
-display.
+Staff-facing interface for managing a real-time client queue at a spa. 
+Front desk staff use this tool to add clients to the waitlist as they 
+request rooms, with updates instantly reflected on the customer-facing 
+display screen.
 
-## How It Works
+Part of a two-part system — see the companion repo: 
+[screenreader-waitlist](https://github.com/aakeohane/screenreader-waitlist)
 
-A staff member at the front desk adds a client's name to the queue when 
-they request a room. That entry is written to Google Firestore and 
-immediately appears on the customer-facing screen display, showing clients 
-their place in line in real time.
+## Features ✅
 
-## Features
-
-- Staff interface for adding and managing queue entries
-- Writes to Google Firestore in real time
-- Instantly syncs with the customer-facing display screen
+- Staff can add clients to the queue in real time
+- Entries sync instantly to Google Firestore
+- Customer-facing display updates automatically with no refresh required
 - Clean, fast UI built for front desk use
+- Bundled with Webpack for optimized production output
 
-## Tech Stack
+## Technologies
 
 - JavaScript (vanilla)
 - HTML / CSS
 - Webpack
 - Google Firebase / Firestore
 
-## Related Repositories
+## Getting Started
 
-This project is part of a two-part waitlist system built for a spa client:
+```bash
+npm install
+npm run dev    # development build
+npm run build  # production build
+```
 
-| Repo | Purpose |
-|------|---------|
-| [Waiting-List](https://github.com/aakeohane/Waiting-List) | Staff-facing interface to manage and add clients to the queue |
-| [screenreader-waitlist](https://github.com/aakeohane/screenreader-waitlist) | Customer-facing screen showing live queue position |
+## Final Reflections
 
-## Background
+This was one of my favorite freelance projects because it solved a real, 
+everyday problem for a real client. Building something that staff would 
+actually use every day pushed me to think beyond just making it work — 
+it had to be fast, simple, and reliable under pressure. Connecting two 
+separate interfaces through Firestore in real time and watching them stay 
+in sync was genuinely satisfying to pull off.
 
-Built as a freelance client project in 2023 for a spa needing a simple, 
-real-time queue management solution. Staff control the queue from one 
-interface while clients watch their position update live on a separate 
-display.
+### Author
+
+[Aaron Keohane](https://aaronkeohane.com)
+
+### Version
+
+1.0.0
